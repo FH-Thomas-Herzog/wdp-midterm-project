@@ -7,11 +7,18 @@ form button {
     padding: 5px;
     border: 1px solid black;
     border-radius: 3px;
-    background-color: burlywood;
+    background-color: ghostwhite;
     color: black;
 }
 
-.form-field {
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+form button:active {
+    background-color: lightgoldenrodyellow;
+}
+
+.form-field, {
     margin: 10px 0;
 }
 

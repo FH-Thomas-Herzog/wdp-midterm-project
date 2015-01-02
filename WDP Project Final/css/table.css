@@ -1,23 +1,32 @@
 .content-table {
     padding: 10px;
     border-collapse: collapse;
-    border: 1px solid;
-    width: 100%;
+    border: 2px solid;
+    width: 80%;
 }
 
-.content-table th,
+.content-table th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    background-color: transparent;
+    font-family: "News Cycle";
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .content-table tr,
 .content-table td {
     border: 1px solid black;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 /* change color every nth row */
 .content-table tr:nth-child(even) {
-    background-color: #7EB6D1;
+    background-color: ghostwhite;
 }
 
 .content-table tr:nth-child(odd) {
-    background-color: white;
+    background-color: transparent;
 }
