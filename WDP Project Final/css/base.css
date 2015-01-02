@@ -3,4 +3,13 @@ body {
     height: 100%;
     background-color: snow;
     font-family: 'PT Sans', sans-serif;
+    font-size: 13px;
+}
+
+.errorMessage {
+    font-font: 'PT Sans', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    background-color: ivory;
 }

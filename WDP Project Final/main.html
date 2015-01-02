@@ -3,43 +3,60 @@
 <head lang="de">
     <meta charset="UTF-8">
     <title>WDP Project</title>
+
     <!-- include css stylesheets -->
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-    <link rel="stylesheet" type="text/css" href="css/table.css">
-    <link rel=stylesheet" type="text/css" href="css/print.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/form.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table.css"/>
+    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
+
     <!-- fonts from google fonts api -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<form>
-    <input id="text1" type="text"/>
-    <button id="send">send</button>
+<!-- PLACEHOLDER FOR ERROR MESSAGES -->
+<div id="errorMessages" class="errorMessage">__exampleError__</div>
+<br>
 
-    <table id="contentTable" class="content-table">
-        <tr>
-            <th>Header1</th>
-            <th>Header2</th>
-            <th>Header3</th>
-        </tr>
-        <tr>
-            <td>Content1</td>
-            <td>Content2</td>
-            <td>Content3</td>
-        </tr>
-        <tr>
-            <td>Content4</td>
-            <td>Content5</td>
-            <td>Content6</td>
-        </tr>
-        <tr>
-            <td>Content7</td>
-            <td>Content8</td>
-            <td>Content9</td>
-        </tr>
-    </table>
+<div class="page-main-area">
 
-</form>
+    <section class="page-content">
+        <form id="form1">
+            <input id="text1" type="text"/><br>
+            <button id="send">send</button>
+        </form>
 
+        <table id="contentTable" class="content-table">
+            <tr>
+                <th>Header1</th>
+                <th>Header2</th>
+                <th>Header3</th>
+            </tr>
+            <tr>
+                <td>Content1</td>
+                <td>Content2</td>
+                <td>Content3</td>
+            </tr>
+            <tr>
+                <td>Content4</td>
+                <td>Content5</td>
+                <td>Content6</td>
+            </tr>
+            <tr>
+                <td>Content7</td>
+                <td>Content8</td>
+                <td>Content9</td>
+            </tr>
+        </table>
+
+    </section>
+
+    <!-- customer information sidebar -->
+    <aside class="page-sidebar">
+        <h2>Customer Information</h2>
+        -- POST-HENDL-FANKTSCH'N --
+    </aside>
+</div>
 </body>
 </html>

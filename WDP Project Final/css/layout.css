@@ -1,0 +1,21 @@
+.page-sidebar {
+    padding: 10px;
+    background-color: ivory;
+}
+
+@media (min-width: 600px) {
+    .page-main-area {
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .page-content {
+        -webkit-flex: 1;
+        flex: 1;
+    }
+
+    .page-sidebar {
+        vertical-align: bottom;
+    }
+
+}
