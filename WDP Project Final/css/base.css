@@ -1,9 +1,11 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: snow;
+    background-color: white;
     font-family: 'PT Sans', sans-serif;
     font-size: 13px;
+    margin: 0;
+    padding: 0;
 }
 
 .errorMessage {
@@ -11,5 +13,11 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: red;
-    background-color: ivory;
+    background-color: lightgoldenrodyellow;
+}
+
+#gMaps {
+    height: 250px;
+    width: 400px;
+    border: 1px solid;
 }

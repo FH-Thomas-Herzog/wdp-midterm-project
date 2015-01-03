@@ -9,17 +9,24 @@
     <link rel="stylesheet" type="text/css" href="css/form.css"/>
     <link rel="stylesheet" type="text/css" href="css/table.css"/>
     <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
 
     <!-- fonts from google fonts api -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+
+    <!-- include javascript files -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBt7ZWih3_mpR9Sleq3qQhDkqhwqhBNXNQ&amp;v=3&amp;sensor=true"></script>
+    <script src="js/lib/jquery-2.1.3.js"></script>
+    <script src="js/GMaps.js"></script>
+
 </head>
 <body>
 <!-- PLACEHOLDER FOR ERROR MESSAGES -->
 <div id="errorMessages" class="errorMessage">__exampleError__</div>
 <br>
 
-<div class="page-main-area">
+<div id="pageMain" class="page-main-area">
 
     <section class="page-content">
         <form id="form1">
@@ -51,12 +58,21 @@
         </table>
 
     </section>
+    <br>
 
+    <div id="gMaps">
+        <!-- PLACEHOLDER FOR GMAPS -->
+    </div>
+    <br>
     <!-- customer information sidebar -->
     <aside class="page-sidebar">
         <h2>Customer Information</h2>
         -- POST-HENDL-FANKTSCH'N --
+        <br>
+
+        <h2>Contacts</h2>
     </aside>
+    <br>
 </div>
 </body>
 </html>
