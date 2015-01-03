@@ -7,10 +7,22 @@ var
      * @type {{INVALID_POSITION: number, INVALID_CUSTOMER: number, POSITION_NOT_FOUND: number, INVALID_POSITION_SPLIT: number}}
      */
     Errors = {
-        INVALID_POSITION: 0,
-        INVALID_CUSTOMER: 1,
-        POSITION_NOT_FOUND: 2,
-        INVALID_POSITION_SPLIT: 3
+        INVALID_POSITION: {
+            code: 0,
+            msg: "Position is invalid and cannot be added to the disposition"
+        },
+        INVALID_CUSTOMER: {
+            code: 1,
+            msg: "Chosen customer is not valid and cannot be used for the disposition"
+        },
+        POSITION_NOT_FOUND: {
+            code: 2,
+            msg: "The intended id could not be found"
+        },
+        INVALID_POSITION_SPLIT: {
+            code: 3,
+            msg: "The split positions are invalid and cannot replace the intended id"
+        }
     }
     ,
     /**
@@ -19,40 +31,39 @@ var
      * after this error handle has handled the error.
      * @constructor ()
      */
-    ErrorHandler = (function () {
+    ErrorHandlerSingleton = function () {
 
+        var
+            instance = null
+            ,
+            getInstance = function () {
+                if (instance == null) {
+                    return {
+                        handle: function (error, preInvokeHandle, postInvokeHandle, customData) {
+                            /* Custom function called before handler handled error */
+                            if (preInvokeHandle != null) {
+                                preInvokeHandle(error, customData);
+                            }
 
-        this.handle = function (error, preInvokeHandle, postInvokeHandle, customData) {
-            /* Custom function called before handler handled error */
-            if (preInvokeHandle != null) {
-                preInvokeHandle(error, customData);
-            }
+                            /* populate message to user */
+                            this.populateMessage(error);
 
-            switch (error) {
-                case 0:
-                    populateMessage("Position is invalid and cannot be added to the disposition");
-                    break;
-                case 1:
-                    populateMessage("Chosen customer is not valid and cannot be used for the disposition");
-                    break;
-                case 2:
-                    populateMessage("The intended position could not be found");
-                    break;
-                case 3:
-                    populateMessage("The split positions are invalid and cannot replace the intended position");
-                    break;
-                default:
-                    alert("Error unknown !!! error:" + error);
-                    break;
-            }
+                            /* Custom function called after handler handled error */
+                            if (postInvokeHandle != null) {
+                                postInvokeHandle(error, customData);
+                            }
+                        },
+                        populateMessage: function (error) {
+                            alert(error.msg + " (" + error.code + ")");
+                        }
+                    }
+                }
+                else {
+                    return instance;
+                }
+            };
 
-            /* Custom function called after handler handled error */
-            if (postInvokeHandle != null) {
-                postInvokeHandle(error, customData);
-            }
-        }
+        return getInstance();
+    };
 
-        function populateMessage(msg) {
-            alert(msg);
-        }
-    })();
+errorHandler = new ErrorHandlerSingleton();
