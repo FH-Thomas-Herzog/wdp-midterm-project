@@ -50,7 +50,7 @@ var
                                 contactSelection.append(_$('<option/>', {
                                     'value': idx,
                                     'text': val.fullName()
-                                }));
+                                })).selectmenu();
                             });
                         }
 
@@ -78,7 +78,7 @@ var
                                 customerSelection.append(_$('<option/>', {
                                     'value': idx,
                                     'text': val.name
-                                }));
+                                })).selectmenu();
                             });
                         }
 
