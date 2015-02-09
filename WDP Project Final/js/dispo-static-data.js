@@ -1,6 +1,7 @@
 /**
  * Created by cchet on 1/3/2015.
  */
+
 var
 /* the static customers for the selection */
     customers = []
@@ -17,6 +18,15 @@ customers.push(new Customer("ZF-Passau", new Address("Donaustrasse", "25", "9403
 
 contacts.push(new Contact("Thomas", "Herzog", "herzog.thomas81@gmail.com", "+43664123456789"));
 
+
+$(function () {
+    var renderer = rendererHelperSingletonFactory.get();
+    renderer.renderContactsOptions(contacts);
+    renderer.renderCustomerOptions(customers);
+});
+
+
+/*
 var customerSelection = (function () {
     var
         _handler = this
@@ -39,10 +49,10 @@ var customerSelection = (function () {
                 $("#contSel").append($('<option/>', {
                     'value': contacts[i].firstName + " " + contacts[i].lastName,
                     'text': contacts[i].firstName + " " + contacts[i].lastName
-                })).selectmenu();
+ })).selectmenu()
             }//for
         }
     );
 
 }());
-
+ */
