@@ -15,7 +15,7 @@ var
                         var
                             _$ = $
                             ,
-                            _renderer = this;
+                            _self = this;
 
                         this.removeContactOption = function (option) {
                             /* if selected one */
@@ -33,15 +33,16 @@ var
                          * ####################################################################
                          */
                         this.clearContactForm = function () {
-                            $("#contactFirstName").empty();
-                            $("#contactLastName").empty();
-                            $("#contactEmail").empty();
-                            $("#contactPhone").empty();
-                            $('#contSel').find(":selected").empty();
+                            _$("#contactFirstName").val("");
+                            _$("#contactLastName").val("");
+                            _$("#contactEmail").val("");
+                            _$("#contactPhone").val("");
+                            _$('#contSel').find(":selected").prop("selected", false);
                         }
 
                         this.renderContactsOptions = function (contacts) {
                             var contactSelection = _$("#contSel");
+                            contactSelection.empty();
                             contactSelection.append(_$('<option/>', {
                                 'value': -1,
                                 'text': "Bitte wählen"
@@ -50,16 +51,21 @@ var
                                 contactSelection.append(_$('<option/>', {
                                     'value': idx,
                                     'text': val.fullName()
-                                })).selectmenu();
+                                }))
                             });
                         }
 
                         this.fillContactForm = function (contacts, idx) {
-                            var option = _$('#custSel option[value="' + idx + '"]');
-                            this.clearContactForm();
-                            this.renderContactsOptions(contacts);
-                            if (option != null) {
-                                option.attr("selected", true);
+                            var option = _$('#contSel').find(":selected");
+                            if ((option != null) && (option.val() >= 0)) {
+                                var contact = contacts[idx];
+                                option.attr("selected", "selected");
+                                _$("#contactFirstName").val(contact.firstName);
+                                _$("#contactLastName").val(contact.lastName);
+                                _$("#contactEmail").val(contact.email);
+                                _$("#contactPhone").val(contact.phone);
+                            }else{
+                                _self.clearContactForm();
                             }
                         }
 

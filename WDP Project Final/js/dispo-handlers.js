@@ -2,6 +2,8 @@
  * Created by cchet on 1/3/2015.
  */
 var
+    handler = null;
+var
     STORAGE_KEY_SAVE_POINTS_ARRAY = "SAFE_POINT_ARRAY"
     ,
     STORAGE_KEY_OPEN_DISPOS = "OPEN_DISPOS"
@@ -18,11 +20,11 @@ var
         var
             dispoHandler = null;
 
-        this.create = function () {
+        this.get = function () {
             if (dispoHandler != null) {
                 return dispoHandler;
             } else {
-                return (dispoHandler = (function () {
+                return (dispoHandler = (new function () {
                     var
                     /* Conserved instances */
                         _self = this
@@ -84,15 +86,31 @@ var
                     /* Contact Event Listener functions */
                     var
                         handleAddContact = function (evt) {
+                            var idx = -1;
+                            var contact = null;
+
                             // TODO: validate data before instance creation
-                            contacts.push(createContact($("#firstName"), $("#lastName"), $("#email"), $("#phone")));
+
+                            var option = _$("#contSel").find(":selected");
+                            if (option != null) {
+                                idx = contacts[option.val()];
+                            }
+                            var contact = createContact(_$("#firstName"), _$("#lastName"), _$("#email"), _$("#phone"));
+                            if (idx >= 0) {
+                                contacts.splice(idx, 1, contact);
+                            } else {
+                                contacts.push(contact);
+                            }
+
                             _renderer.renderContactsOptions(currentDisposition.contacts);
                         }
                         ,
                         handleRemoveContact = function (evt) {
-                            var option = _$(this);
-                            currentDisposition.contacts.slice(option.val());
-                            _renderer.removeContactOption(option);
+                            var option = _$("#contSel").find(":selected");
+                            if (option != null) {
+                                currentDisposition.contacts.slice(option.val());
+                                _renderer.removeContactOption(option);
+                            }
                         }
                         ,
                         handleContactSelect = function () {
@@ -120,16 +138,29 @@ var
                      * initializes this instance
                      * ############################################################
                      */
-                    _self.initStateFromStorage();
+                    this.init = function () {
+                        customers.push(new Customer("Curecomp", new Address("Hafenstrasse", "49-51", "4020", "Linz", "AT", "Austria")));
+                        customers.push(new Customer("ZF-Passau", new Address("Donaustrasse", "25", "94034", "Passau", "DE", "Germany")));
+
+                        _self.initStateFromStorage();
+                        currentDisposition.contacts = contacts;
+                        _renderer.renderContactsOptions(currentDisposition.contacts);
+                        _renderer.renderCustomerOptions(customers);
+                        _$("#contSel").change(handleContactSelect);
+                        _$("#custSel").change(handleCustomerSelect);
+                    }
                     // TODO: Register all event listeners
+
                 }()))
             }
         }
     }()
 
-var
-    handler = null;
-
 $(function () {
     handler = dispoSingletonHandlerFactory.get();
+    handler.init();
+    $("#contactLastName").click(function (evt) {
+        evt.preventDefault();
+        alert("helo")
+    });
 });
