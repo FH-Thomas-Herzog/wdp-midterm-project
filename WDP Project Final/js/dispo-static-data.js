@@ -30,7 +30,7 @@ var customerSelection = (function () {
                     'value': customers[i].name,
                     'text': customers[i].name
                 }).append($('<img/>', {
-                    'src': '../css/img/delete.gif',
+                    'src': './css/img/delete.gif',
                     'alt': 'X'
                 }))).selectmenu();
             }//for
