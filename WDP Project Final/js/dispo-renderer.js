@@ -39,6 +39,7 @@ var
                             $("#contactPhone").empty();
                             $('#contSel').find(":selected").empty();
                         }
+
                         this.renderContactsOptions = function (contacts) {
                             var contactSelection = _$("#contSel");
                             contactSelection.append(_$('<option/>', {
@@ -73,7 +74,7 @@ var
                                 'value': -1,
                                 'text': "Bitte wählen"
                             }));
-                            _$.each(contacts, function (idx, val) {
+                            _$.each(customers, function (idx, val) {
                                 customerSelection.append(_$('<option/>', {
                                     'value': idx,
                                     'text': val.name
