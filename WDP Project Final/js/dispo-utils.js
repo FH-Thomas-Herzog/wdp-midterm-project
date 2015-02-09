@@ -7,22 +7,15 @@ var
      * @type {{INVALID_POSITION: number, INVALID_CUSTOMER: number, POSITION_NOT_FOUND: number, INVALID_POSITION_SPLIT: number}}
      */
     Errors = {
-        INVALID_POSITION: {
-            code: 0,
-            msg: "Position is invalid and cannot be added to the disposition"
-        },
-        INVALID_CUSTOMER: {
-            code: 1,
-            msg: "Chosen customer is not valid and cannot be used for the disposition"
-        },
-        POSITION_NOT_FOUND: {
-            code: 2,
-            msg: "The intended id could not be found"
-        },
-        INVALID_POSITION_SPLIT: {
-            code: 3,
-            msg: "The split positions are invalid and cannot replace the intended id"
-        }
+        INVALID_POSITION: new ErrorInstance(0, "Position is invalid and cannot be added to the disposition")
+        ,
+        INVALID_CUSTOMER: new ErrorInstance(1, "Chosen customer is not valid and cannot be used for the disposition")
+        ,
+        POSITION_NOT_FOUND: new ErrorInstance(2, "The intended id could not be found")
+        ,
+        INVALID_POSITION_SPLIT: new ErrorInstance(3, "The split positions are invalid and cannot replace the intended id")
+        ,
+        MAP_ENTRY_INVALID_TYPE: new ErrorInstance(4, "Map can only handle MapEntry instances")
     }
     ,
     /**
@@ -65,5 +58,3 @@ var
 
         return getInstance();
     };
-
-errorHandler = new ErrorHandlerSingleton();

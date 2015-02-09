@@ -5,6 +5,17 @@
  */
 var
     /**
+     * This object specifies the structure of a error instance
+     * @param code the code of the error
+     * @param msg the message for this error
+     * @constructor (code, msg)
+     */
+    ErrorInstance = function (code, msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+    ,
+    /**
      * This object holds contact information of a natural person.
      * @param firstName the persons first name
      * @param lastName the persons last name
@@ -38,10 +49,11 @@ var
         this.city = city;
         this.countryCode = countryCode;
         this.countryName = countryName;
-
-        this.formattedHtmlAddress = function () {
-            return this.street + " " + this.number + "<br>" + this.countryCode + "-" + this.postalCode + " " + this.city + "<br>" + this.countryName.toUpperCase()
-        }
+    }
+    ,
+    Customer = function (name, address) {
+        this.name = name;
+        this.address = address;
     }
     ,
     /**
@@ -76,8 +88,7 @@ var
              * @param id the id of the id
              * @returns the found id, null otherwise.
              */
-            getPositionIdxByPositionId = function
-                getPositionIdxByPositionId(id) {
+            getIdxForPositionId = function (id) {
                 var foundIdx = -1;
                 $.each(positions, function (idx, value) {
                     return (foundIdx = (value.id === id) ? idx : -1) == -1;
@@ -121,7 +132,7 @@ var
          * @param positionId the id of the id in the array
          */
         this.removePosition = function (positionId) {
-            var idx = getPositionIdxByPositionId(positionId);
+            var idx = getIdxForPositionId(positionId);
             if (idx >= 0) {
                 positions.splice(idx, 1);
                 /* redefine id id */
@@ -134,7 +145,7 @@ var
         }
 
         this.splitPosition = function (oldPositionId, newPositions) {
-            var idx = getPositionIdxByPositionId(oldPositionId);
+            var idx = getIdxForPositionId(oldPositionId);
             if (idx >= 0) {
                 /* Check if split positions are valid */
                 var
@@ -171,7 +182,7 @@ var
      * @constructor (id, comment, qty, weight)
      */
     DispoPosition = function (comment, qty, weight) {
-        this.id = "undefined";
+        this.id;
         this.comment = comment;
         this.qty = qty;
         this.weight = weight;
@@ -180,3 +191,8 @@ var
             return ((weight > 0) && (qty > 0));
         }
     };
+
+/* Prototype chain */
+Address.prototype.formattedHtmlAddress = function () {
+    return this.street + " " + this.number + "<br>" + this.countryCode + "-" + this.postalCode + " " + this.city + "<br>" + this.countryName.toUpperCase();
+}

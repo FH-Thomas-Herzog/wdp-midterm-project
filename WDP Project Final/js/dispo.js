@@ -4,11 +4,14 @@
  *
  *     This javascript file contains the javascript code for the dispo application.
  */
+errorHandler = new ErrorHandlerSingleton();
+
 var
     ObjectSpecTest = function () {
         var
             dispo = new Disposition();
         this.testAddDisposition = function () {
+            console.log(this);
             var pos = new DispoPosition("I am a pos 1", 10, 10);
             dispo.addPosition(pos);
             var pos = new DispoPosition("I am a pos 2", 10, 10);
