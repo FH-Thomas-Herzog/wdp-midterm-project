@@ -1,3 +1,6 @@
+/**
+ * Created by Tom on 03.01.15.
+ */
 .page-sidebar {
     padding: 10px;
     background-color: whitesmoke;
@@ -10,6 +13,7 @@
     }
 
     .page-content {
+        padding: 10px;
         -webkit-flex: 1;
         flex: 1;
     }
