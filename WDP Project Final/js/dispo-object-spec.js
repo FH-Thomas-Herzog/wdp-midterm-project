@@ -63,6 +63,12 @@ var
      */
     Disposition = function () {
         /* #################################### */
+        /* public section                      */
+        /* #################################### */
+        this.contacts = [];
+        this.customer = null;
+
+        /* #################################### */
         /* private section                      */
         /* #################################### */
         var
@@ -78,39 +84,38 @@ var
              */
             sumWeight = 0
             ,
+
+            /**
+             * The delivery Address of the customer where the delivery goes to
+             * @type {null}
+             */
+            deliveryAddress = null
+            ,
+            /**
+             * The pickup address of the supplier where the delivery is picked up from
+             * @type {null}
+             */
+            pickupAddress = null;
+
+
         /* #################################### */
         /* static section                       */
         /* #################################### */
-            POSITION_ID_PREFIX = "pos_"
-            ,
-            /**
-             * Finds a id within the hold id array.
-             * @param id the id of the id
-             * @returns the found id, null otherwise.
-             */
-            getIdxForPositionId = function (id) {
-                var foundIdx = -1;
-                $.each(positions, function (idx, value) {
-                    return (foundIdx = (value.id === id) ? idx : -1) == -1;
-                });
-                return foundIdx;
-            }
+        var
+            POSITION_ID_PREFIX = "pos_";
 
         /**
-         * The delivery Address of the customer where the delivery goes to
-         * @type {null}
+         * Finds a id within the hold id array.
+         * @param id the id of the id
+         * @returns the found id, null otherwise.
          */
-        this.delivewryAddress = null;
-        /**
-         * The pickup address of the supplier where the delivery is picked up from
-         * @type {null}
-         */
-        this.pickupAddress = null;
-        /**
-         * This is the customer which gets the delivery
-         * @type {null}
-         */
-        this.customer = null;
+        function getIdxForPositionId(id) {
+            var foundIdx = -1;
+            $.each(positions, function (idx, value) {
+                return (foundIdx = (value.id === id) ? idx : -1) == -1;
+            });
+            return foundIdx;
+        }
 
         /**
          * Adds a id to the disposition and performs validation to ensure that the added id is valid
@@ -195,4 +200,12 @@ var
 /* Prototype chain */
 Address.prototype.formattedHtmlAddress = function () {
     return this.street + " " + this.number + "<br>" + this.countryCode + "-" + this.postalCode + " " + this.city + "<br>" + this.countryName.toUpperCase();
+}
+
+Contact.prototype.fullName = function () {
+    return this.lastName + ", " + this.firstName;
+}
+
+function createContact(firstName, lastName, email, phone) {
+    return new Customer(firstName, lastName, phone);
 }
