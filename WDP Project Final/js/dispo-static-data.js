@@ -23,15 +23,19 @@ var customerSelection = (function () {
         ,
         _$ = $;
 
-    this.init = function () {
-        for (var i = 0; i < customers.length; i++) {
-            $('<option/>', {
-                'value': customers[i].name,
-                'text': customers[i].name
-            }).appendTo('custSel');
-        }//for
-    }();
-
+    $(
+        function () {
+            for (var i = 0; i < customers.length; i++) {
+                $("#custSel").append($('<option/>', {
+                    'value': customers[i].name,
+                    'text': customers[i].name
+                })).append($('<img/>', {
+                    'src': '../css/img/delete.gif',
+                    'alt': 'X'
+                }));
+            }
+        }
+    );
 
 }());
 
