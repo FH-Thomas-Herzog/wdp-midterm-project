@@ -29,11 +29,18 @@ var customerSelection = (function () {
                 $("#custSel").append($('<option/>', {
                     'value': customers[i].name,
                     'text': customers[i].name
-                })).append($('<img/>', {
+                }).append($('<img/>', {
                     'src': '../css/img/delete.gif',
                     'alt': 'X'
-                }));
-            }
+                }))).selectmenu();
+            }//for
+
+            for (var i = 0; i < contacts.length; i++) {
+                $("#contSel").append($('<option/>', {
+                    'value': contacts[i].firstName + " " + contacts[i].lastName,
+                    'text': contacts[i].firstName + " " + contacts[i].lastName
+                })).selectmenu();
+            }//for
         }
     );
 
