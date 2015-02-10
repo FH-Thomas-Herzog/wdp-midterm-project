@@ -153,7 +153,7 @@ var
                         }
 
                         this.clearPositions = function () {
-                            var liArray = _$("position-list").find("li");
+                            var liArray = _$("#positionList").find("li");
                             _$.each(liArray, function (idx, val) {
                                 val.remove();
                             });
