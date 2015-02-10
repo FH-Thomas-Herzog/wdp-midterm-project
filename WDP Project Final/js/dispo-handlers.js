@@ -138,15 +138,31 @@ var
 
                         }
                         ,
-                        collectHeadData = function() {
-                            return currentDisposition.head = {
+                        collectHeadData = function () {
+                            currentDisposition.head = {
                                 notificationNumer: _$("#notificationNumber").val(),
                                 supplierNumber: _$("#supplierNumber").val()
                             }
                         }
                         ,
                         collectionPositionData = function () {
-                            // TODO: Get positions
+                            var positions = [];
+                            // TODO: Get positions and set on disposition
+                            currentDisposition.positions = positions;
+                            currentDisposition.buildSummary();
+                        }
+                        ,
+                        handleReset = function (evt) {
+                            console.log("reset called");
+                            currentDisposition = new Disposition();
+                            _renderer.clearAll();
+                            // TODO: Clear rest of forms
+                        }
+                        ,
+                        handleSave = function (evt) {
+                            collectHeadData();
+                            collectionPositionData();
+                            console.log(currentDisposition);
                         }
 
                     /**
@@ -164,19 +180,20 @@ var
                         _renderer.renderCustomerOptions(customers);
                         _$("#contSel").change(handleContactSelect);
                         _$("#custSel").change(handleCustomerSelect);
+                        _$("#resetButton").click(handleReset);
+                        _$("#saveButton").click(handleSave);
                     }
                     // TODO: Register all event listeners
 
-                }()))
+                }
+                ()
+                ))
             }
         }
-    }()
+    }
+    ()
 
 $(function () {
     handler = dispoSingletonHandlerFactory.get();
     handler.init();
-    $("#contactLastName").click(function (evt) {
-        evt.preventDefault();
-        alert("helo")
-    });
 });
