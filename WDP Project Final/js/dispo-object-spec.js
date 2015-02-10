@@ -161,24 +161,11 @@ var
         }
     }
     ,
-    /**
-     * This object represents a id within a disposition.
-     * @param id the id within the other positions
-     * @param comment the comment to this positions
-     * @param qty the quantity of this id
-     * @param weight the weight of this id
-     * @constructor (id, comment, qty, weight)
-     */
     DispoPosition = function (itemNo, itemDescr, qty, weight) {
-        this.id;
         this.itemNo = itemNo;
         this.itemDescr = itemDescr;
         this.qty = qty;
         this.weight = weight;
-
-        this.isValid = function () {
-            return ((weight > 0) && (qty > 0));
-        }
     };
 
 /* Prototype chain */
@@ -193,15 +180,16 @@ Contact.prototype.fullName = function () {
 Disposition.prototype.buildSummary = function () {
     var sum = 0;
     $.each(this.positions, function (idx, val) {
-           sum += val.weight;
+        sum += val.weight;
     });
     this.summaryWeight = sum;
 }
 
-Disposition.prototype.isValid = function () {
-    return ((weight > 0) && (qty > 0));
+DispoPosition.prototype.isValid = function () {
+    return ((this.weight > 0) && (this.qty > 0));
 }
 
+/* create methods */
 function createContact(firstName, lastName, email, phone) {
     return new Customer(firstName, lastName, phone);
 }
