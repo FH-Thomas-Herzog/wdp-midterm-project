@@ -33,7 +33,7 @@ var
                         ,
                         _renderer = rendererHelperSingletonFactory.get()
                         ,
-                        _geoCodeHandler = geoHandlerSingletonFactory.get();
+                        _geoCodeHandler = geoHandlerSingletonFactory.get()
 
                     /* Private members */
                     var
@@ -136,6 +136,11 @@ var
                                 currentDisposition.customer = customers[option.val()];
                                 _renderer.fillCustomerForm(customers, option.val());
                                 // TODO: Add gmaps handling
+                                var tmp_adr = customers[option.val()].address.street;
+                                tmp_adr = tmp_adr + " " + customers[option.val()].address.number;
+                                tmp_adr = tmp_adr + ", " + customers[option.val()].address.postalCode;
+                                tmp_adr = tmp_adr + " " + customers[option.val()].address.city;
+                                _geoCodeHandler.addMarkerAddress(tmp_adr);
                             }
                         }
 

@@ -17,32 +17,41 @@ var
                         map.setCenter(pos)
                         this.addMarker(pos, results[0].formatted_address)
                     } else {
-                        alert("Geocode was not successful for the following reason: " + status)
-                        navigator.geolocation.getCurrentPosition(this.addMarker, this.error)
+                        //alert("Geocode was not successful for the following reason: " + status)
+                        //navigator.geolocation.getCurrentPosition(this.addMarker, this.error)
+                        var mapOptions = {
+                            zoom: 13,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            center: new google.maps.LatLng(48.31004, 14.29724)
+
+                        };
+
+                        // create necessary google objects
+                        map = new google.maps.Map(document.getElementById("gMaps"), mapOptions)
+                        var geocoder = new google.maps.Geocoder()
+
+                        new google.maps.TrafficLayer().setMap(map)
                     }
 
-                    this.addMarker = function (pos, title) {
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            draggable: false,
-                            title: title,
-                            icon: {path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, scale: 4, strokeColor: 'red'},
-                            position: pos
-                        });
+                    this.addMarkerAddress = function (address) {
+                        geocoder.geocode({'address': address}, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                                var infoWindow = new google.maps.InfoWindow({
+                                    position: results[0].geometry.location,
+                                    map: map,
+                                    content: address //maps api: address with street, postal code, city
+                                });
 
-                        this.addInfoWindow(marker, pos, title)
-                    }
-
-                    this.addInfoWindow = function (marker, pos, title) {
-                        var infoWindow = new google.maps.InfoWindow({
-                            position: pos,
-                            map: map,
-                            content: title //maps api: address with street, postal code, city
-                        });
-
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infoWindow.open(map, marker);
-                        });
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    infoWindow.open(map, marker);
+                                });
+                            }
+                        })
                     }
 
                     this.init = function () {
@@ -54,8 +63,6 @@ var
                         // create necessary google objects
                         map = new google.maps.Map(document.getElementById("gMaps"), mapOptions)
                         var geocoder = new google.maps.Geocoder()
-
-                        geocoder.geocode({'address': address}, geoCodeHandler);
 
                         new google.maps.TrafficLayer().setMap(map)
                     }
