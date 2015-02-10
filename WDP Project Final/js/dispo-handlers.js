@@ -31,7 +31,9 @@ var
                         ,
                         _$ = $
                         ,
-                        _renderer = rendererHelperSingletonFactory.get();
+                        _renderer = rendererHelperSingletonFactory.get()
+                        ,
+                        _geoCodeHandler = geoHandlerSingletonFactory.get();
 
                     /* Private members */
                     var
@@ -129,9 +131,11 @@ var
                             if (option.val() < 0) {
                                 currentDisposition.customer = null;
                                 _renderer.clearCustomerForm();
+                                // TODO: Remove gmaps from view
                             } else {
                                 currentDisposition.customer = customers[option.val()];
                                 _renderer.fillCustomerForm(customers, option.val());
+                                // TODO: Add gmaps handling
                             }
                         }
 
@@ -192,7 +196,6 @@ var
                      */
                     var
                         handleReset = function (evt) {
-                            console.log("reset called");
                             currentDisposition = new Disposition();
                             _renderer.clearAll();
                         }
