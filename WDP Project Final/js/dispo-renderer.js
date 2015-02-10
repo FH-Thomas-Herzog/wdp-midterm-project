@@ -136,9 +136,13 @@ var
                             _$.each(positions, function (idx, val) {
                                 positionList.append(
                                     _$("<li></li>").attr("class", "panel-item").append(
-                                        _$("<div></div>").attr("class", "panel-item-header").text("header")  // TODO: Append content here
+                                        _$("<div></div>").attr("class", "panel-item-header").text(positions[idx].itemNo)
                                     ).append(
-                                        _$("<div></div>").attr("class", "panel-item-body").text("body") // TODO: Append content here
+                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].itemDescr)
+                                    ).append(
+                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].qty)
+                                    ).append(
+                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].weight)
                                     )
                                 );
                             });
@@ -161,6 +165,14 @@ var
                             _self.clearCustomerForm();
                             _self.clearDispositionForm();
                         }
+
+                        /**
+                         * ####################################################################
+                         * Disposition item rendering
+                         * ####################################################################
+                         */
+
+
                     }()))
             }
         }
