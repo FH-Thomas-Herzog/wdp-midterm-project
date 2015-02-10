@@ -133,6 +133,22 @@ var
                             }
                         }
 
+                    var
+                        handleSubmit = function (evt) {
+
+                        }
+                        ,
+                        collectHeadData = function() {
+                            return currentDisposition.head = {
+                                notificationNumer: _$("#notificationNumber").val(),
+                                supplierNumber: _$("#supplierNumber").val()
+                            }
+                        }
+                        ,
+                        collectionPositionData = function () {
+                            // TODO: Get positions
+                        }
+
                     /**
                      * ############################################################
                      * initializes this instance

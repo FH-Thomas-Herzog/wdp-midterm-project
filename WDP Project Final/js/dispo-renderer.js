@@ -33,10 +33,7 @@ var
                          * ####################################################################
                          */
                         this.clearContactForm = function () {
-                            _$("#contactFirstName").val("");
-                            _$("#contactLastName").val("");
-                            _$("#contactEmail").val("");
-                            _$("#contactPhone").val("");
+                            _$("#contactEditForm")[0].reset();
                             _$('#contSel').find(":selected").prop("selected", false);
                         }
 

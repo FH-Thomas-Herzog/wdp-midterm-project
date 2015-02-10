@@ -67,41 +67,20 @@ var
         /* #################################### */
         this.contacts = [];
         this.customer = null;
-
-        /* #################################### */
-        /* private section                      */
-        /* #################################### */
-        var
-            /**
-             * The array holding all positions of this disposition
-             * @type {Array}
-             */
-            positions = []
-            ,
-            /**
-             * The sum of the weight over all positions
-             * @type {number}
-             */
-            sumWeight = 0
-            ,
-
-            /**
-             * The delivery Address of the customer where the delivery goes to
-             * @type {null}
-             */
-            deliveryAddress = null
-            ,
-            /**
-             * The pickup address of the supplier where the delivery is picked up from
-             * @type {null}
-             */
-            pickupAddress = null;
+        this.head = {};
+        this.positions = [];
+        this.positionCount = 0;
+        this.summaryWeight = 0;
+        this.deliveryAddress = null;
+        this.pickupAddress = null;
 
 
         /* #################################### */
         /* static section                       */
         /* #################################### */
         var
+            _self = this
+            ,
             POSITION_ID_PREFIX = "pos_";
 
         /**
@@ -111,7 +90,7 @@ var
          */
         function getIdxForPositionId(id) {
             var foundIdx = -1;
-            $.each(positions, function (idx, value) {
+            $.each(_self.positions, function (idx, value) {
                 return (foundIdx = (value.id === id) ? idx : -1) == -1;
             });
             return foundIdx;
@@ -124,9 +103,9 @@ var
          */
         this.addPosition = function (position) {
             if ((position != null) && (position.isValid())) {
-                sumWeight += position.weight;
-                position.id = POSITION_ID_PREFIX + (positions.length + 1);
-                positions.push(position);
+                _self.sumWeight += position.weight;
+                position.id = POSITION_ID_PREFIX + (_self.positions.length + 1);
+                _self.positions.push(position);
             } else {
                 errorHandler.handle(Errors.INVALID_POSITION);
             }
