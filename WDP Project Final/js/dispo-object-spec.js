@@ -169,9 +169,10 @@ var
      * @param weight the weight of this id
      * @constructor (id, comment, qty, weight)
      */
-    DispoPosition = function (comment, qty, weight) {
+    DispoPosition = function (itemNo, itemDescr, qty, weight) {
         this.id;
-        this.comment = comment;
+        this.itemNo = itemNo;
+        this.itemDescr = itemDescr;
         this.qty = qty;
         this.weight = weight;
 
@@ -195,6 +196,10 @@ Disposition.prototype.buildSummary = function () {
            sum += val.weight;
     });
     this.summaryWeight = sum;
+}
+
+Disposition.prototype.isValid = function () {
+    return ((weight > 0) && (qty > 0));
 }
 
 function createContact(firstName, lastName, email, phone) {
