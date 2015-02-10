@@ -136,13 +136,17 @@ var
                             _$.each(positions, function (idx, val) {
                                 positionList.append(
                                     _$("<li></li>").attr("class", "panel-item").append(
-                                        _$("<div></div>").attr("class", "panel-item-header").text(positions[idx].itemNo)
+                                        _$("<div></div>").attr("class", "panel-item-header").text("header")
                                     ).append(
-                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].itemDescr)
-                                    ).append(
-                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].qty)
-                                    ).append(
-                                        _$("<div></div>").attr("class", "panel-item-body").text(positions[idx].weight)
+                                        _$("<div></div>").attr("class", "panel-item-body").append(
+                                            _$("<span>").text(val.itemNo)
+                                        ).append(
+                                            _$("<span>").text(val.itemDescr)
+                                        ).append(
+                                            _$("<span>").text(val.qty)
+                                        ).append(
+                                            _$("<span>").text(val.weight)
+                                        )
                                     )
                                 );
                             });
