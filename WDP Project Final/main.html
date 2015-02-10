@@ -41,11 +41,18 @@
     <aside class="page-sidebar">
         <h2>Customer Information</h2>
 
-        <form id="customerSelection">
+        <form id="companyEditForm">
             <select id="custSel">
                 <!-- Placeholder for Customers -->
+                <label>Company</label><br><input type="text" value="compName" id="compName"/>
+                <label>Street</label><br><input type="text" value="compStreet" id="compStreet"/>
+                <label>ZipCode/City</label><br><input type="email" value="compZipCode" id="compZipCode"/>
+                <label>Country</label><br><input type="text" value="compCountry" id="compCountry"/>
+                <input type="submit" value="saveCompany"/></input>
+
             </select>
         </form>
+
         <br>
 
         <h2>Contacts</h2>
@@ -66,7 +73,7 @@
             <form id="dispositionForm">
                 <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
                 <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
-                <label>Sendungsnummer</label><br><input type="email" value="Sendungsnummer" id="notficationNumer"/>
+                <label>Sendungsnummer</label><br><input type="email" value="Sendungsnummer" id="notficationNumber"/>
                 <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer" id="supplierNumber"/>
                 <input id="resetButton" type="submit" value="save"/></input>
                 <input type="submit" value="reset"/></input>
