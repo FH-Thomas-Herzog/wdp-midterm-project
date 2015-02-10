@@ -131,12 +131,34 @@ var
                             _$("#countPositions").val(head.positionCount);
                         }
 
+                        this.renderPositions = function (positions) {
+                            var positionList = _$("#positionList");
+                            _$.each(positions, function (idx, val) {
+                                positionList.append(
+                                    _$("<li></li>").attr("class", "panel-item").append(
+                                        _$("<div></div>").attr("class", "panel-item-header").text("header")  // TODO: Append content here
+                                    ).append(
+                                        _$("<div></div>").attr("class", "panel-item-body").text("body") // TODO: Append content here
+                                    )
+                                );
+                            });
+                        }
+
+                        this.clearPositions = function () {
+                            var liArray = _$("position-list").find("li");
+                            _$.each(liArray, function (idx, val) {
+                                val.remove();
+                            });
+                        }
+
                         this.clearDispositionForm = function () {
                             _$("#dispositionForm")[0].reset();
+                            this.clearPositions();
                         }
 
                         this.clearAll = function () {
                             _self.clearContactForm();
+                            _self.clearCustomerForm();
                             _self.clearDispositionForm();
                         }
                     }()))

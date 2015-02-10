@@ -142,6 +142,16 @@ var
                                 supplierNumber: _$("#supplierNumber").val()
                             }
                         }
+
+                    /**
+                     * ###########################################################
+                     * position event listeners
+                     * ###########################################################
+                     */
+                    var
+                        startIdx
+                        ,
+                        endIdx
                         ,
                         collectionPositionData = function () {
                             var positions = [];
@@ -150,11 +160,32 @@ var
                             currentDisposition.buildSummary();
                         }
                         ,
-                        handlePositionMove = function (evt, ui) {
-                            console.log(evt);
-                            console.log(ui);
+                        handleAddPosition = function (evt) {
+                            console.log("add position");
+                            currentDisposition.positions.push(new DispoPosition("Ihr Kommentar zur Position", 0, 0));
+                            _renderer.clearPositions();
+                            _renderer.renderPositions(currentDisposition.positions);
                         }
                         ,
+                        handlePositionDrag = function (evt, ui) {
+                            endIdx = -1;
+                            startIdx = _$(ui.item).index();
+                            console.log("started dragging: " + startIdx);
+                        }
+                        ,
+                        handlePositionDrop = function (evt, ui) {
+                            endIdx = _$(ui.item).index();
+                            console.log("started dropping: " + endIdx);
+                            startIdx = -1;
+                            endIdx = -1;
+                        }
+
+                    /**
+                     * ###########################################################
+                     * global event handlers (save, reset,..)
+                     * ###########################################################
+                     */
+                    var
                         handleReset = function (evt) {
                             console.log("reset called");
                             currentDisposition = new Disposition();
@@ -181,15 +212,21 @@ var
                         currentDisposition.contacts = contacts;
                         _renderer.renderContactsOptions(currentDisposition.contacts);
                         _renderer.renderCustomerOptions(customers);
+
+                        /* selection events */
                         _$("#contSel").change(handleContactSelect);
                         _$("#custSel").change(handleCustomerSelect);
-                        _$("#resetButton").click(handleReset);
-                        _$("#saveButton").click(handleSave);
 
-                        $('#draggablePanelList').sortable({
+                        /* Button events */
+                        _$("#saveButton").click(handleSave);
+                        _$("#resetButton").click(handleReset);
+                        _$("#addPositionButton").click(handleAddPosition);
+
+                        $('#positionList').sortable({
                             // Only make the .panel-heading child elements support dragging.
-                            handle: '.panel-heading',
-                            update: handlePositionMove
+                            handle: '.panel-item-header',
+                            start: handlePositionDrag,
+                            stop: handlePositionDrop
                         });
                     }
                     // TODO: Register all event listeners
