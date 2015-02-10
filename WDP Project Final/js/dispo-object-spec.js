@@ -161,11 +161,11 @@ var
         }
     }
     ,
-    DispoPosition = function (itemNo, itemDescr, qty, weight) {
-        this.itemNo = itemNo;
-        this.itemDescr = itemDescr;
-        this.qty = qty;
-        this.weight = weight;
+    DispoPosition = function () {
+        this.itemNo = "\<Die Artikelnummer\>";
+        this.itemDescr = "\<Ihre Artikelbeschreibung\>";
+        this.qty = 0;
+        this.weight = 0;
     };
 
 /* Prototype chain */

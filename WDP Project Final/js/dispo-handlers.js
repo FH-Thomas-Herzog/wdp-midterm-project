@@ -162,20 +162,25 @@ var
                         ,
                         handleAddPosition = function (evt) {
                             console.log("add position");
-                            currentDisposition.positions.push(new DispoPosition("Ihr Kommentar zur Position", 0, 0));
+                            currentDisposition.positions.push(new DispoPosition());
                             _renderer.clearPositions();
                             _renderer.renderPositions(currentDisposition.positions);
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
                             endIdx = -1;
-                            startIdx = _$(ui.item).index();
-                            console.log("started dragging: " + startIdx);
+                            startIdx = (_$(ui.item).index());
                         }
                         ,
                         handlePositionDrop = function (evt, ui) {
-                            endIdx = _$(ui.item).index();
-                            console.log("started dropping: " + endIdx);
+                            endIdx = (_$(ui.item).index());
+
+                            var tmpStart = currentDisposition.positions[startIdx];
+                            currentDisposition.positions.splice(startIdx, 1, currentDisposition.positions[endIdx]);
+                            currentDisposition.positions.splice(endIdx, 1, tmpStart);
+
+                            _renderer.clearPositions();
+                            _renderer.renderPositions(currentDisposition.positions);
                             startIdx = -1;
                             endIdx = -1;
                         }
@@ -190,7 +195,6 @@ var
                             console.log("reset called");
                             currentDisposition = new Disposition();
                             _renderer.clearAll();
-                            // TODO: Clear rest of forms
                         }
                         ,
                         handleSave = function (evt) {
