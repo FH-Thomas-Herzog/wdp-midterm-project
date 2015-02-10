@@ -100,6 +100,7 @@
                 }
             </style>
 
+
             <!-- Bootstrap 3 panel list. -->
             <ul id="draggablePanelList" class="list-unstyled">
                 <li class="panel panel-info">
@@ -111,6 +112,18 @@
                     <div class="panel-body">Content ...</div>
                 </li>
             </ul>
+        </div>
+
+        <!-- ITEM CONTAINER FORM (edit existing or add new Item) -->
+        <div class="itemContainer">
+            <form id="itemForm">
+                <label>ArtikelNr</label><input type="text" value="Item#" id="itemNumber"/>
+                <label>Artikel</label><input type="text" value="ItemDescription" id="itemDescription"/>
+                <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity"/>
+                <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemQeight"/>
+                <input type="submit" id="addItem" value="add"/>
+                <input type="submit" id="saveChanges" value="save" (>
+            </form>
         </div>
 
     </section>
