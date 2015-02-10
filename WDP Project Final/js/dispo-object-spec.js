@@ -71,6 +71,8 @@ var
         this.positions = [];
         this.positionCount = 0;
         this.summaryWeight = 0;
+        this.notificationNumber = "";
+        this.supplierNumber = "";
         this.deliveryAddress = null;
         this.pickupAddress = null;
 
@@ -80,6 +82,8 @@ var
         /* #################################### */
         var
             _self = this
+            ,
+            _$ = $
             ,
             POSITION_ID_PREFIX = "pos_";
 
@@ -118,9 +122,9 @@ var
         this.removePosition = function (positionId) {
             var idx = getIdxForPositionId(positionId);
             if (idx >= 0) {
-                positions.splice(idx, 1);
+                _self.positions.splice(idx, 1);
                 /* redefine id id */
-                $.each(positions, function (idx, value) {
+                $.each(_self.positions, function (idx, value) {
                     value.id = POSITION_ID_PREFIX + (idx + 1);
                 });
             } else {
@@ -136,7 +140,7 @@ var
                     qty = 0,
                     weight = 0,
                     oldPos = positions[idx];
-                $.each(positions, function (idx, value) {
+                $.each(_self.positions, function (idx, value) {
                     qty += newPositions[i].qty;
                     weight += newPositions[i].weight;
                 });
@@ -146,14 +150,14 @@ var
                     return;
                 }
                 /* Remove old pos and add new ones */
-                positions.splice(idx, 1, newPositions);
+                _self.positions.splice(idx, 1, newPositions);
             } else {
                 errorHandler.handle(Errors.INVALID_POSITION);
             }
         }
 
         this.getPositions = function () {
-            return positions.slice(0);
+            return _self.positions.slice(0);
         }
     }
     ,
@@ -183,6 +187,14 @@ Address.prototype.formattedHtmlAddress = function () {
 
 Contact.prototype.fullName = function () {
     return this.lastName + ", " + this.firstName;
+}
+
+Disposition.prototype.buildSummary = function () {
+    var sum = 0;
+    $.each(this.positions, function (idx, val) {
+           sum += val.weight;
+    });
+    this.summaryWeight = sum;
 }
 
 function createContact(firstName, lastName, email, phone) {
