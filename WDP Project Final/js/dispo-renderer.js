@@ -61,7 +61,7 @@ var
                                 _$("#contactLastName").val(contact.lastName);
                                 _$("#contactEmail").val(contact.email);
                                 _$("#contactPhone").val(contact.phone);
-                            }else{
+                            } else {
                                 _self.clearContactForm();
                             }
                         }
@@ -85,6 +85,60 @@ var
                             });
                         }
 
+
+                        this.renderCustomerOptions = function (customers) {
+                            var customerSelection = _$("#custSel");
+                            customerSelection.append(_$('<option/>', {
+                                'value': -1,
+                                'text': "Bitte wählen"
+                            }));
+                            _$.each(customers, function (idx, val) {
+                                customerSelection.append(_$('<option/>', {
+                                    'value': idx,
+                                    'text': val.name
+                                }));
+                            });
+                        }
+
+                        this.clearCompanyForm = function () {
+                            _$("#companyEditForm")[0].reset();
+                            _$('#custSel').find(":selected").prop("selected", false);
+                        }
+
+                        this.fillCompanyForm = function (customers, idx) {
+                            var option = _$('#custSel').find(":selected");
+                            if ((option != null) && (option.val() >= 0)) {
+                                var company = customers[idx];
+                                option.attr("selected", "selected");
+                                _$("#compName").val(company.Name);
+                                _$("#compStreet").val(company.address.street + " " + company.address.number);
+                                _$("#compCity").val(company.address.postalCode + "-" + company.address.city);
+                                _$("#compCountry").val(company.address.countryName);
+                            } else {
+                                _self.clearCompanyForm();
+                            }
+                        }
+
+                        /**
+                         * ####################################################################
+                         * Disposition head rendering
+                         * ####################################################################
+                         */
+                        this.fillDispositionHead = function (head) {
+                            _$("#notificationNumber").val(head.notificationNumber);
+                            _$("#supplierNumber").val(head.supplierNumber);
+                            _$("#sumWeight").val(head.summaryWeight);
+                            _$("#countPositions").val(head.positionCount);
+                        }
+
+                        this.clearDispositionForm = function () {
+                            _$("#dispositionForm")[0].reset();
+                        }
+
+                        this.clearAll = function () {
+                            _self.clearContactForm();
+                            _self.clearDispositionForm();
+                        }
                     }()))
             }
         }
