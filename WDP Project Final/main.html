@@ -50,8 +50,8 @@
 
         <h2>Contacts</h2>
 
-        <form id="contactEditForm">
-            <div class="contact-form-container">
+        <div class="contact-form-container">
+            <form id="contactEditForm">
                 <select id="contSel">
                 </select>
                 <label>LastName</label><br><input type="text" value="lastName" id="contactLastName"/>
@@ -59,20 +59,20 @@
                 <label>Email</label><br><input type="email" value="email" id="contactEmail"/>
                 <label>Phone</label><br><input type="text" value="phone" id="contactPhone"/>
                 <input type="submit" value="saveContact"/></input>
-            </div>
-        </form>
 
-        <form id="dispositionForm">
-            <div class="disposition-form-container">
-                <select id="contSel">
-                </select>
-                <label>Anzahl Positionen</label><br><input type="text" value="lastName" id="countPositions"/>
-                <label>Summe Gewicht</label><br><input type="text" value="firstName" id="sumWeight"/>
-                <label>Sendungsnummer</label><br><input type="email" value="email" id="notficationNumer"/>
-                <label>Lieferanten Nummer</label><br><input type="text" value="phone" id="supplierNumber"/>
-                <input type="submit" value="saveContact"/></input>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="disposition-form-container" style="margin-top: 10px">
+            <form id="dispositionForm">
+                <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
+                <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
+                <label>Sendungsnummer</label><br><input type="email" value="Sendungsnummer" id="notficationNumer"/>
+                <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer" id="supplierNumber"/>
+                <input id="resetButton" type="submit" value="save"/></input>
+                <input type="submit" value="reset"/></input>
+
+            </form>
+        </div>
     </aside>
     <br>
     <section class="page-content">
