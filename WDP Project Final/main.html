@@ -29,6 +29,7 @@
     <script src="js/dispo-renderer.js"></script>
     <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
+    <script src="js/lib/bootstrap/bootstrap.js"></script>
 </head>
 <body>
 <!-- PLACEHOLDER FOR ERROR MESSAGES -->
@@ -74,12 +75,14 @@
                 <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
                 <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
                 <label>Sendungsnummer</label><br><input type="email" value="Sendungsnummer" id="notficationNumber"/>
-                <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer" id="supplierNumber"/>
+                <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer"
+                                                            id="supplierNumber"/>
                 <input id="resetButton" type="submit" value="save"/></input>
                 <input type="submit" value="reset"/></input>
 
             </form>
         </div>
+
     </aside>
     <br>
     <section class="page-content">
@@ -88,28 +91,27 @@
             <button id="send">send</button>
         </form>
 
-        <table id="contentTable" class="content-table">
-            <tr>
-                <th>Header1</th>
-                <th>Header2</th>
-                <th>Header3</th>
-            </tr>
-            <tr>
-                <td>Content1</td>
-                <td>Content2</td>
-                <td>Content3</td>
-            </tr>
-            <tr>
-                <td>Content4</td>
-                <td>Content5</td>
-                <td>Content6</td>
-            </tr>
-            <tr>
-                <td>Content7</td>
-                <td>Content8</td>
-                <td>Content9</td>
-            </tr>
-        </table>
+
+        <div>
+            <style type="text/css">
+                /* show the move cursor as the user moves the mouse over the panel header.*/
+                #draggablePanelList .panel-heading {
+                    cursor: move;
+                }
+            </style>
+
+            <!-- Bootstrap 3 panel list. -->
+            <ul id="draggablePanelList" class="list-unstyled">
+                <li class="panel panel-info">
+                    <div class="panel-heading">You can drag this panel.</div>
+                    <div class="panel-body">Content ...</div>
+                </li>
+                <li class="panel panel-info">
+                    <div class="panel-heading">You can drag this panel too.</div>
+                    <div class="panel-body">Content ...</div>
+                </li>
+            </ul>
+        </div>
 
     </section>
     <br>
