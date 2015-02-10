@@ -125,11 +125,13 @@ var
                     /* Customer Event Listener functions */
                     var
                         handleCustomerSelect = function (evt) {
-                            var option = $(this);
+                            var option = _$(this);
                             if (option.val() < 0) {
                                 currentDisposition.customer = null;
+                                _renderer.clearCustomerForm();
                             } else {
                                 currentDisposition.customer = customers[option.val()];
+                                _renderer.fillCustomerForm(customers, option.val());
                             }
                         }
 
@@ -146,6 +148,11 @@ var
                             // TODO: Get positions and set on disposition
                             currentDisposition.positions = positions;
                             currentDisposition.buildSummary();
+                        }
+                        ,
+                        handlePositionMove = function (evt, ui) {
+                            console.log(evt);
+                            console.log(ui);
                         }
                         ,
                         handleReset = function (evt) {
@@ -178,6 +185,12 @@ var
                         _$("#custSel").change(handleCustomerSelect);
                         _$("#resetButton").click(handleReset);
                         _$("#saveButton").click(handleSave);
+
+                        $('#draggablePanelList').sortable({
+                            // Only make the .panel-heading child elements support dragging.
+                            handle: '.panel-heading',
+                            update: handlePositionMove
+                        });
                     }
                     // TODO: Register all event listeners
                 }
@@ -191,21 +204,4 @@ var
 $(function () {
     handler = dispoSingletonHandlerFactory.get();
     handler.init();
-    (function () {
-        var panelList = $('#draggablePanelList');
-
-        panelList.sortable({
-            // Only make the .panel-heading child elements support dragging.
-            // Omit this to make then entire <li>...</li> draggable.
-            handle: '.panel-heading',
-            update: function () {
-                $('.panel', panelList).each(function (index, elem) {
-                    var $listItem = $(elem),
-                        newIndex = $listItem.index();
-
-                    // Persist the new indices.
-                });
-            }
-        });
-    })();
 });
