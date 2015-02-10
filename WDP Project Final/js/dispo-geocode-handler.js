@@ -15,7 +15,7 @@ var
                     if (status == google.maps.GeocoderStatus.OK) {
                         pos = results[0].geometry.location
                         map.setCenter(pos)
-                        addMarker(pos, results[0].formatted_address)
+                        this.addMarker(pos, results[0].formatted_address)
                     } else {
                         alert("Geocode was not successful for the following reason: " + status)
                         navigator.geolocation.getCurrentPosition(this.addMarker, this.error)
@@ -30,7 +30,7 @@ var
                             position: pos
                         });
 
-                        addInfoWindow(marker, pos, title)
+                        this.addInfoWindow(marker, pos, title)
                     }
 
                     this.addInfoWindow = function (marker, pos, title) {
