@@ -100,19 +100,19 @@ var
                             });
                         }
 
-                        this.clearCompanyForm = function () {
+                        this.clearCustomerForm = function () {
                             _$("#companyEditForm")[0].reset();
                             _$('#custSel').find(":selected").prop("selected", false);
                         }
 
-                        this.fillCompanyForm = function (customers, idx) {
+                        this.fillCustomerForm = function (customers, idx) {
                             var option = _$('#custSel').find(":selected");
                             if ((option != null) && (option.val() >= 0)) {
                                 var company = customers[idx];
                                 option.attr("selected", "selected");
-                                _$("#compName").val(company.Name);
+                                _$("#compName").val(company.name);
                                 _$("#compStreet").val(company.address.street + " " + company.address.number);
-                                _$("#compCity").val(company.address.postalCode + "-" + company.address.city);
+                                _$("#compZipCode").val(company.address.postalCode + "-" + company.address.city);
                                 _$("#compCountry").val(company.address.countryName);
                             } else {
                                 _self.clearCompanyForm();
