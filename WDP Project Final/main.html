@@ -10,12 +10,9 @@
     <title>WDP Project</title>
 
     <!-- include css stylesheets -->
+
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
-    <link rel="stylesheet" type="text/css" href="css/form.css"/>
-    <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">
     <!-- fonts from google fonts api -->
@@ -31,102 +28,89 @@
     <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
     <script src="js/lib/bootstrap/bootstrap.js"></script>
+
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+        });
+        $(function () {
+            $("#accordion1").accordion();
+        });
+    </script>
 </head>
 <body>
 <!-- PLACEHOLDER FOR ERROR MESSAGES -->
-<div id="errorMessages" class="errorMessage">__exampleError__</div>
+<div id="errorMessages" class="errorMessage"></div>
 <br>
 
-<div id="pageMain" class="page-main-area">
-    <br>
+<div id="pageMain" class="container-fluid">
     <!-- customer information sidebar -->
-    <aside class="page-sidebar">
-        <h2>Customer Information</h2>
+    <div class="row">
+        <div id="accordion" class="col-sm-3 col-md-4">
+            <h2>Customer Information</h2>
 
-        <form id="companyEditForm">
-            <select id="custSel">
-                <!-- Placeholder for Customers -->
-                <label>Company</label><br><input type="text" value="compName" id="compName"/>
-                <label>Street</label><br><input type="text" value="compStreet" id="compStreet"/>
-                <label>ZipCode/City</label><br><input type="text" value="compZipCode" id="compZipCode"/>
-                <label>Country</label><br><input type="text" value="compCountry" id="compCountry"/>
-                <input type="submit" value="saveCompany"/></input>
+            <form id="companyEditForm">
+                <select id="custSel">
+                    <!-- Placeholder for Customers -->
+                    <label>Company</label><br><input type="text" value="compName" id="compName"/>
+                    <label>Street</label><br><input type="text" value="compStreet" id="compStreet"/>
+                    <label>ZipCode/City</label><br><input type="text" value="compZipCode" id="compZipCode"/>
+                    <label>Country</label><br><input type="text" value="compCountry" id="compCountry"/>
+                    <input type="submit" value="saveCompany"/></input>
 
-            </select>
-        </form>
-
-        <br>
-
-        <h2>Contacts</h2>
-
-        <div class="contact-form-container">
-            <form id="contactEditForm">
-                <select id="contSel">
                 </select>
-                <label>LastName</label><br><input type="text" value="lastName" id="contactLastName"/>
-                <label>FirstName</label><br><input type="text" value="firstName" id="contactFirstName"/>
-                <label>Email</label><br><input type="email" value="email" id="contactEmail"/>
-                <label>Phone</label><br><input type="text" value="phone" id="contactPhone"/>
-                <input type="submit" value="saveContact"/></input>
-
             </form>
-        </div>
-        <div class="disposition-form-container" style="margin-top: 10px">
-            <form id="dispositionForm">
-                <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
-                <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
-                <label>Sendungsnummer</label><br><input type="text" value="Sendungsnummer" id="notficationNumber"/>
-                <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer"
-                                                            id="supplierNumber"/><br>
-                <input id="saveButton" type="button" value="save"/></input>
-                <input id="resetButton" type="button" value="reset"/></input>
-                <input id="addPositionButton" type="button" value="addPosition"/></input>
 
-            </form>
-        </div>
+            <h2>Contacts</h2>
 
-    </aside>
-    <br>
-    <section class="page-content">
-        <form id="form1">
-            <input id="text1" type="text"/><br>
-            <button id="send">send</button>
-        </form>
+            <div class="contact-form-container">
+                <form id="contactEditForm">
+                    <select id="contSel">
+                    </select>
+                    <label>LastName</label><br><input type="text" value="lastName" id="contactLastName"/>
+                    <label>FirstName</label><br><input type="text" value="firstName" id="contactFirstName"/>
+                    <label>Email</label><br><input type="email" value="email" id="contactEmail"/>
+                    <label>Phone</label><br><input type="text" value="phone" id="contactPhone"/>
+                    <input type="submit" value="saveContact"/></input>
 
+                </form>
+            </div>
+            <h2>Dispo Form Container</h2>
 
-        <div>
-            <style type="text/css">
-                /* show the move cursor as the user moves the mouse over the panel header.*/
-                #positionList .panel-item-header {
-                    cursor: move;
-                }
-            </style>
+            <div class="disposition-form-container" style="margin-top: 10px">
+                <form id="dispositionForm">
+                    <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
+                    <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
+                    <label>Sendungsnummer</label><br><input type="text" value="Sendungsnummer" id="notficationNumber"/>
+                    <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer"
+                                                                id="supplierNumber"/><br>
+                    <input id="saveButton" type="button" value="save"/></input>
+                    <input id="resetButton" type="button" value="reset"/></input>
+                    <input id="addPositionButton" type="button" value="addPosition"/></input>
 
-
-            <!-- Bootstrap 3 panel list. -->
-            <ul id="positionList" class="list-unstyled">
-            </ul>
+                </form>
+            </div>
         </div>
 
-        <!-- ITEM CONTAINER FORM (edit existing or add new Item) -->
-        <div class="itemContainer">
-            <form id="itemForm">
-                <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber"/><br>
-                <label>Artikelname</label><br><input type="text" value="ItemDescription" id="itemDescription"/><br>
-                <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity"/>
-                <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight"/><br>
-                <input type="submit" id="addItem" value="add"/>
-                <input type="submit" id="saveChanges" value="save"/>
-            </form>
-        </div>
-
-    </section>
-    <br>
-
-    <div id="gMaps">
-        <!-- PLACEHOLDER FOR GMAPS -->
+        <div id="position-accordion" class="col-sm-3 col-md-4">
     </div>
 
-</div>
+        <button id="opener">Google Maps</button>
+        <div id="gMaps" title="Google Maps">
+            <!-- PLACEHOLDER FOR GMAPS -->
+        </div>
+
+        <script>
+            $("#gMaps").dialog({autoOpen: false});
+            $("#gMaps").dialog("option", "height", 400);
+            $("#gMaps").dialog("option", "width", 400);
+
+
+            $("#opener").click(function () {
+                $("#gMaps").dialog("open");
+            });
+        </script>
+
+    </div>
 </body>
 </html>
