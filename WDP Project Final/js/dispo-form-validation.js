@@ -6,7 +6,7 @@ var
     MAX_LENGTH_EXCEEDED = "Maximale Länge überschritten ";
 
 var
-    formValidationSingleTonFactory = new (function () {
+    formValidationSingleTonFactory = new function () {
         var
             instance = null;
 
@@ -14,53 +14,55 @@ var
             if (instance != null) {
                 return instance;
             } else {
-                return (instance = (new (function () {
+                return (instance = (new function () {
                     var
                         contactFormRules = {};
 
-                    this.getContactFormRules = function () {
-                        return contactFormRules;
-                    }
-
-                    contactFormRules = {
-                        debug: true,
-                        rules: {
-                            firstName: {
-                                required: true,
-                                maxLength: 100
+                    this.getContactFormRules = function (submitCallBack) {
+                        return {
+                            submitHandler: submitCallBack,
+                            debug: true,
+                            rules: {
+                                contactFfirstName: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                contactLastName: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                contactEmail: {
+                                    required: true,
+                                    email: true,
+                                    maxlength: 100
+                                },
+                                contactPhone: {
+                                    required: true,
+                                    maxlength: 100
+                                }
                             },
-                            lastName: {
-                                required: true,
-                                maxLength: 100
-                            },
-                            email: {
-                                required: true,
-                                email: true,
-                                maxLength: 100
-                            },
-                            phone: {
-                                required: true,
-                                maxLength: 100
-                            }
-                        },
-                        messages: {
-                            firstName: {
-                                required: REQUIRED_MESSAGE,
-                                maxLength: MAX_LENGTH_EXCEEDED
-                            }, lastName: {
-                                required: REQUIRED_MESSAGE,
-                                maxLength: MAX_LENGTH_EXCEEDED
-                            }, email: {
-                                required: REQUIRED_MESSAGE,
-                                maxLength: MAX_LENGTH_EXCEEDED,
-                                email: "Ungültige Email"
-                            }, phone: {
-                                required: REQUIRED_MESSAGE,
-                                maxLength: MAX_LENGTH_EXCEEDED
+                            messages: {
+                                contactFirstName: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                contactLastName: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                contactEmail: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED,
+                                    email: "Ungültige Email"
+                                },
+                                contactPhone: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                }
                             }
                         }
                     }
-                }())));
+                }()));
             }
         }
-    })();
+    }();
