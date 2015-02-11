@@ -30,10 +30,22 @@
     <script src="js/dispo-static-data.js"></script>
     <script src="js/dispo-renderer.js"></script>
     <script src="js/dispo-geocode-handler.js"></script>
+    <script src="js/dispo-form-validation.js"></script>
+    <script src="js/dispo-handlers.js"></script>
+    <script src="js/lib/jquery-validation/jquery.validate.js"></script>
+    <script src="js/lib/jquery-validation/additional-methods.js"></script>
     <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
     <script src="js/lib/bootstrap/bootstrap.js"></script>
 
+    <style>#form label.error {
+        color: red;
+    }
+
+    #form input.error {
+        border: 1px solid red;
+    }
+    </style>
     <script>
         $(function () {
             $("#accordion").accordion();
@@ -57,10 +69,12 @@
             <form id="companyEditForm">
                 <select id="custSel">
                     <!-- Placeholder for Customers -->
-                    <label>Company</label><br><input type="text" value="compName" id="compName"/>
-                    <label>Street</label><br><input type="text" value="compStreet" id="compStreet"/>
-                    <label>ZipCode/City</label><br><input type="text" value="compZipCode" id="compZipCode"/>
-                    <label>Country</label><br><input type="text" value="compCountry" id="compCountry"/>
+                    <label for="compName">Company</label><br><input type="text" value="compName" id="compName" name="compName"/>
+                    <label for="compStreet">Street</label><br><input type="text" value="compStreet" id="compStreet" name="compStreet"/>
+                    <label for="compSipCode">ZipCode/City</label><br><input type="text" value="compZipCode" id="compZipCode"
+                                                          name="compZipCode"/>
+                    <label for="compCountry">Country</label><br><input type="text" value="compCountry" id="compCountry"
+                                                     name="compCountry"/>
                     <input type="submit" value="saveCompany"/></input>
 
                 </select>
@@ -69,13 +83,16 @@
             <h2>Contacts</h2>
 
             <div class="contact-form-container">
-                <form id="contactEditForm">
-                    <select id="contSel">
-                    </select>
-                    <label>LastName</label><br><input type="text" value="lastName" id="contactLastName"/>
-                    <label>FirstName</label><br><input type="text" value="firstName" id="contactFirstName"/>
-                    <label>Email</label><br><input type="email" value="email" id="contactEmail"/>
-                    <label>Phone</label><br><input type="text" value="phone" id="contactPhone"/>
+                <select id="contSel">
+                </select>
+
+                <form id="contactEditForm"  method="" action="">
+                    <label for="contactLastName">LastName</label><br><input type="text" value="lastName" id="contactLastName"
+                                                      name="contactLastName"/>
+                    <label for="contactFirstName">FirstName</label><br><input type="text" value="firstName" id="contactFirstName"
+                                                       name="contactFirstName"/>
+                    <label for="contactEmail">Email</label><br><input type="email" value="email" id="contactEmail" name="contactEmail"/>
+                    <label for="contactPhone">Phone</label><br><input type="text" value="phone" id="contactPhone" name="contactPhone"/>
                     <input type="submit" value="saveContact"/></input>
 
                 </form>
