@@ -28,8 +28,10 @@
     <script src="js/dispo-static-data.js"></script>
     <script src="js/dispo-renderer.js"></script>
     <script src="js/dispo-geocode-handler.js"></script>
+    <script src="js/dispo-form-validation.js"></script>
     <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
+    <script src="js/lib/jquery-validation/jquery.validate.js"></script>
     <script src="js/lib/bootstrap/bootstrap.js"></script>
 </head>
 <body>
@@ -95,31 +97,10 @@
 
 
         <div>
-            <style type="text/css">
-                /* show the move cursor as the user moves the mouse over the panel header.*/
-                #positionList .panel-item-header {
-                    cursor: move;
-                }
-            </style>
-
-
             <!-- Bootstrap 3 panel list. -->
-            <ul id="positionList" class="list-unstyled">
+            <div id="position-accordion">
             </ul>
         </div>
-
-        <!-- ITEM CONTAINER FORM (edit existing or add new Item) -->
-        <div class="itemContainer">
-            <form id="itemForm">
-                <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber"/><br>
-                <label>Artikelname</label><br><input type="text" value="ItemDescription" id="itemDescription"/><br>
-                <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity"/>
-                <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight"/><br>
-                <input type="submit" id="addItem" value="add"/>
-                <input type="submit" id="saveChanges" value="save"/>
-            </form>
-        </div>
-
     </section>
     <br>
 
@@ -128,5 +109,7 @@
     </div>
 
 </div>
+<script>
+</script>
 </body>
 </html>

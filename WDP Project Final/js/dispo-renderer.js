@@ -133,34 +133,53 @@ var
                         }
 
                         this.renderPositions = function (positions) {
-                            var positionList = _$("#positionList");
+                            var accordion = _$("#position-accordion");
                             _$.each(positions, function (idx, val) {
-                                positionList.append(
-                                    _$("<li></li>").attr("class", "panel-item").attr("id", ("panel-item-idx-" + idx)).append(
-                                        _$("<div></div>").attr("class", "panel-item-header").text("header")
+                                accordion.append(
+                                    _$("<div></div>").attr("class", "item").attr("id", ("item-" + idx)).append(
+                                        _$("<h3></h3>").attr("class", "item-header").attr("id", ("item-header-" + idx)).text("Position " + (idx + 1))
                                     ).append(
-                                        _$("<div></div>").attr("class", "panel-item-body").append(
-                                            _$("<span>").text(val.itemNo)
-                                        ).append(
-                                            _$("<span>").text(val.itemDescr)
-                                        ).append(
-                                            _$("<span>").text(val.qty)
-                                        ).append(
-                                            _$("<span>").text(val.weight)
-                                        )
+                                        _$("<div></div>").attr("class", "item-body").attr("id", ("item-body-" + idx))
                                     )
                                 );
                             });
                         }
 
-                        this.renderPositionForm = function (position) {
+                        this.renderPositionForm = function (id, position) {
+                            _$("#" + id).append(
+                                createLabelElement("comment", "Kommentar:")
+                            ).append(
+                                createInputElement("comment", "text").val(position.comment)
+                            ).append(
+                                createLabelElement("article-desc", "Artikelbeschreibung:")
+                            ).append(
+                                createInputElement("article-desc", "text").val(position.itemDescr)
+                            ).append(
+                                createLabelElement("article-nr", "Artikel-Nummer:")
+                            ).append(
+                                createInputElement("article-nr", "text").val(position.itemNo)
+                            ).append(
+                                createLabelElement("article-count", "Anzahl:")
+                            ).append(
+                                createInputElement("article-count", "number").val(position.qty)
+                            ).append(
+                                createLabelElement("position-weight", "Gewicht")
+                            ).append(
+                                createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
+                            ).append(
+                                createButtonElement("save", "Speichern")
+                            ).append(
+                                createButtonElement("delete", "Löschen")
+                            )
+                            ;
+                        }
+
+                        this.removePositionForm = function (id) {
+                            _$("#" + id).empty();
                         }
 
                         this.clearPositions = function () {
-                            var liArray = _$("#positionList").find("li");
-                            _$.each(liArray, function (idx, val) {
-                                val.remove();
-                            });
+                            _$("#position-accordion").empty();
                         }
 
                         this.clearDispositionForm = function () {
@@ -173,6 +192,28 @@ var
                             _self.clearCustomerForm();
                             _self.clearDispositionForm();
                         }
+
+                        /**
+                         * ####################################################################
+                         * Helper for rendering
+                         * ####################################################################
+                         */
+                        var
+                            createSpanElement = function (id, text) {
+                                return _$("<span></span>").attr("id", id).text(text);
+                            }
+                            ,
+                            createLabelElement = function (id, label) {
+                                return _$("<label></label>").attr("id", "label-" + id).text(label);
+                            }
+                            ,
+                            createInputElement = function (id, type) {
+                                return _$("<input></input>").attr("id", id).attr("type", type);
+                            }
+                            ,
+                            createButtonElement = function (id, text) {
+                                return _$("<button></button>").attr("id", id).text(text);
+                            }
                     }()))
             }
         }

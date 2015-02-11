@@ -162,6 +162,7 @@ var
     }
     ,
     DispoPosition = function () {
+        this.comment = "\<Ihr Kommentar zu dieser Position\>";
         this.itemNo = "\<Die Artikelnummer\>";
         this.itemDescr = "\<Ihre Artikelbeschreibung\>";
         this.qty = 0;

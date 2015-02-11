@@ -34,6 +34,8 @@ var
                         _renderer = rendererHelperSingletonFactory.get()
                         ,
                         _geoCodeHandler = geoHandlerSingletonFactory.get()
+                        ;
+                    //_validationHAndler = formValidationSingleTonFactory.get();
 
                     /* Private members */
                     var
@@ -172,11 +174,16 @@ var
                             currentDisposition.buildSummary();
                         }
                         ,
+                        refreshPositions = function () {
+                            _renderer.renderPositions(currentDisposition.positions);
+                            $("#position-accordion").accordion("refresh");
+                        }
+                        ,
                         handleAddPosition = function (evt) {
                             console.log("add position");
                             currentDisposition.positions.push(new DispoPosition());
                             _renderer.clearPositions();
-                            _renderer.renderPositions(currentDisposition.positions);
+                            refreshPositions();
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
@@ -192,13 +199,44 @@ var
                             currentDisposition.positions.splice(endIdx, 1, tmpStart);
 
                             _renderer.clearPositions();
-                            _renderer.renderPositions(currentDisposition.positions);
+                            refreshPositions();
                             startIdx = -1;
                             endIdx = -1;
                         }
                         ,
-                        handleEditPosition = function() {
-                            console.log("hello selector");
+                        handleEditPosition = function (evt) {
+                            _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(_$(this).attr("id"))]);
+                        }
+
+                    /**
+                     * ###########################################################
+                     * accordion event handler
+                     * ###########################################################
+                     */
+                    var
+                        handleOpenAccordion = function (evt, ui) {
+                            var
+                                id, panel;
+
+                            /* formerly collapsed */
+                            if (ui.newHeader[0] == null) {
+                                panel = ui.oldPanel;
+                            } else {
+                                panel = ui.newPanel;
+                            }
+                            id = panel[0].id;
+
+                            _renderer.removePositionForm(id);
+                            _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(id)]);
+                            _$("#position-accordion").accordion("refresh");
+                        }
+
+                    var
+                        extractIndexFromId = function (id) {
+                            var
+                                idArr = id.split("-");
+
+                            return idArr[idArr.length - 1];
                         }
 
                     /**
@@ -228,12 +266,6 @@ var
                         customers.push(new Customer("ZF-Passau", new Address("Donaustrasse", "25", "94034", "Passau", "DE", "Germany")));
 
                         _self.initStateFromStorage();
-                        _$.each(_$(".panel-item"), function (idx, val) {
-                            val.click(function () {
-                                handleEditPosition();
-                            });
-                        });
-
                         currentDisposition.contacts = contacts;
                         _renderer.renderContactsOptions(currentDisposition.contacts);
                         _renderer.renderCustomerOptions(customers);
@@ -247,12 +279,27 @@ var
                         _$("#resetButton").click(handleReset);
                         _$("#addPositionButton").click(handleAddPosition);
 
-                        $('#positionList').sortable({
-                            // Only make the .panel-heading child elements support dragging.
-                            handle: '.panel-item-header',
-                            start: handlePositionDrag,
-                            stop: handlePositionDrop
-                        });
+                        $("#position-accordion")
+                            .accordion({
+                                header: "> div > h3",
+                                activate: handleOpenAccordion,
+                                beforeActivate: false,
+                                alwaysOpen: false,
+                                collapsible: true
+                            })
+                            .sortable({
+                                axis: "y",
+                                handle: "h3",
+                                stop: function (event, ui) {
+                                    // IE doesn't register the blur when sorting
+                                    // so trigger focusout handlers to remove .ui-state-focus
+                                    ui.item.children("h3").triggerHandler("focusout");
+
+                                    // Refresh accordion to handle new order
+                                    _$(this).accordion("refresh");
+                                }
+                            });
+                        // _$("#contactForm").validate(_validationHAndler.getContactFormRules());
                     }
                     // TODO: Register all event listeners
                 }
