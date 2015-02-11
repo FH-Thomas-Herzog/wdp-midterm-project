@@ -147,29 +147,29 @@ var
 
                         this.renderPositionForm = function (id, position) {
                             _$("#" + id).append(
-                                createLabelElement("comment", "Kommentar:")
+                                createLabelElement("comment", "Kommentar:").attr("class", "ui-widget")
                             ).append(
-                                createInputElement("comment", "text").val(position.comment)
+                                createInputElement("comment", "text").val(position.comment).attr("class", "ui-widget")
                             ).append(
-                                createLabelElement("article-desc", "Artikelbeschreibung:")
+                                createLabelElement("article-desc", "Artikelbeschreibung:").attr("class", "ui-widget")
                             ).append(
-                                createInputElement("article-desc", "text").val(position.itemDescr)
+                                createInputElement("article-desc", "text").val(position.itemDescr).attr("class", "ui-widget")
                             ).append(
-                                createLabelElement("article-nr", "Artikel-Nummer:")
+                                createLabelElement("article-nr", "Artikel-Nummer:").attr("class", "ui-widget")
                             ).append(
-                                createInputElement("article-nr", "text").val(position.itemNo)
+                                createInputElement("article-nr", "text").val(position.itemNo).attr("class", "ui-widget")
                             ).append(
-                                createLabelElement("article-count", "Anzahl:")
+                                createLabelElement("article-count", "Anzahl:").attr("class", "ui-widget")
                             ).append(
-                                createInputElement("article-count", "number").val(position.qty)
+                                createInputElement("article-count", "number").val(position.qty).attr("class", "ui-widget")
                             ).append(
-                                createLabelElement("position-weight", "Gewicht")
+                                createLabelElement("position-weight", "Gewicht").attr("class", "ui-widget")
                             ).append(
                                 createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
                             ).append(
-                                createButtonElement("save", "Speichern")
+                                createButtonElement("save", "Speichern").attr("class", "ui-widget")
                             ).append(
-                                createButtonElement("delete", "Löschen")
+                                createButtonElement("delete", "Löschen").attr("class", "ui-widget")
                             )
                             ;
                         }
