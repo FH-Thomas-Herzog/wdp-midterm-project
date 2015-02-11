@@ -15,7 +15,8 @@ var
                         var
                             _$ = $
                             ,
-                            _self = this;
+                            _self = this
+                            ;
 
                         this.removeContactOption = function (option) {
                             /* if selected one */
@@ -115,7 +116,7 @@ var
                                 _$("#compZipCode").val(company.address.postalCode + "-" + company.address.city);
                                 _$("#compCountry").val(company.address.countryName);
                             } else {
-                                _self.clearCompanyForm();
+                                _self.clearCustomerForm();
                             }
                         }
 
@@ -135,7 +136,7 @@ var
                             var positionList = _$("#positionList");
                             _$.each(positions, function (idx, val) {
                                 positionList.append(
-                                    _$("<li></li>").attr("class", "panel-item").append(
+                                    _$("<li></li>").attr("class", "panel-item").attr("id", ("panel-item-idx-" + idx)).append(
                                         _$("<div></div>").attr("class", "panel-item-header").text("header")
                                     ).append(
                                         _$("<div></div>").attr("class", "panel-item-body").append(
@@ -150,6 +151,9 @@ var
                                     )
                                 );
                             });
+                        }
+
+                        this.renderPositionForm = function (position) {
                         }
 
                         this.clearPositions = function () {

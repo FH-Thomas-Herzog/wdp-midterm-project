@@ -67,6 +67,9 @@ var
                             currentDisposition.contacts = item.contacts;
                             openDispositions = item.openDispositions;
                             // TODO: Display message about returned save point
+                            _renderer.renderCustomerOptions();
+                            _renderer.renderContactsOptions();
+                            _renderer.renderPositions(currentDisposition.positions);
                         } else {
                             savePoints = 0;
                             localStorage.setItem(STORAGE_KEY_SAVE_POINTS_ARRAY, []);
@@ -188,6 +191,10 @@ var
                             startIdx = -1;
                             endIdx = -1;
                         }
+                        ,
+                        handleEditPosition = function() {
+                            console.log("hello selector");
+                        }
 
                     /**
                      * ###########################################################
@@ -216,6 +223,12 @@ var
                         customers.push(new Customer("ZF-Passau", new Address("Donaustrasse", "25", "94034", "Passau", "DE", "Germany")));
 
                         _self.initStateFromStorage();
+                        _$.each(_$(".panel-item"), function (idx, val) {
+                            val.click(function () {
+                                handleEditPosition();
+                            });
+                        });
+
                         currentDisposition.contacts = contacts;
                         _renderer.renderContactsOptions(currentDisposition.contacts);
                         _renderer.renderCustomerOptions(customers);
