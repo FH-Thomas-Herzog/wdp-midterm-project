@@ -1,0 +1,100 @@
+<!--
+/**
+ * Created by Tom on 03.01.15.
+ */
+-->
+<!DOCTYPE html>
+<html>
+<head lang="de">
+    <meta charset="UTF-8">
+    <title>WDP Project</title>
+
+    <!-- include css stylesheets -->
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/form.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table.css"/>
+    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">
+
+
+    <!-- fonts from google fonts api -->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+
+    <!-- include javascript files -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBt7ZWih3_mpR9Sleq3qQhDkqhwqhBNXNQ&amp;v=3&amp;sensor=true"></script>
+    <script src="js/lib/jquery-2.1.3.js"></script>
+    <script src="js/dispo-geocode-handler.js"></script>
+    <script src="js/dispo-object-spec.js"></script>
+    <script src="js/dispo-static-data.js"></script>
+    <script src="js/dispo-renderer.js"></script>
+
+    <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
+    <style>
+        /* IE has layout issues when sorting (see #5413) */
+        .group {
+            zoom: 1
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#accordion1")
+                    .accordion({header: "> div > h3"})
+                    .sortable({
+                        axis: "y",
+                        handle: "h3",
+                        stop: function (event, ui) {
+                            // IE doesn't register the blur when sorting
+                            // so trigger focusout handlers to remove .ui-state-focus
+                            ui.item.children("h3").triggerHandler("focusout");
+
+                            // Refresh accordion to handle new order
+                            $(this).accordion("refresh");
+                        }
+                    });
+        });
+    </script>
+</head>
+<body>
+<!-- PLACEHOLDER FOR ERROR MESSAGES -->
+<div id="errorMessages" class="errorMessage">__exampleError__</div>
+<br>
+
+<div id="pageMain" class="page-main-area">
+
+    <div id="accordion1">
+        <div class="group">
+            <h3>Section 1</h3>
+
+            <div>
+                <form id="itemForm1">
+                    <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber"/><br>
+                    <label>Artikelname</label><br><input type="text" value="ItemDescription"
+                                                         id="itemDescription"/><br>
+                    <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity"/>
+                    <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight"/><br>
+                    <input type="submit" id="addItem" value="add"/>
+                    <input type="submit" id="saveChanges" value="save"/>
+                </form>
+            </div>
+        </div>
+        <div class="group">
+            <h3>Section 1</h3>
+
+            <div>
+                <form id="itemForm2">
+                    <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber1"/><br>
+                    <label>Artikelname</label><br><input type="text" value="ItemDescription" id="itemDescription1"/><br>
+                    <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity1"/>
+                    <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight1"/><br>
+                    <input type="submit" id="addItem1" value="add"/>
+                    <input type="submit" id="saveChanges1" value="save"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
