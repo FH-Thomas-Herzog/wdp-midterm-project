@@ -34,8 +34,8 @@ var
                         _renderer = rendererHelperSingletonFactory.get()
                         ,
                         _geoCodeHandler = geoHandlerSingletonFactory.get()
-                        ;
-                    //_validationHAndler = formValidationSingleTonFactory.get();
+                        ,
+                        _validationHandler = formValidationSingleTonFactory.get();
 
                     /* Private members */
                     var
@@ -92,7 +92,8 @@ var
 
                     /* Contact Event Listener functions */
                     var
-                        handleAddContact = function (evt) {
+                        handleSaveContact = function (evt) {
+                            _$("#contactEditForm").validate(_validationHandler.getContactFormRules());
                             var idx = -1;
                             var contact = null;
 
@@ -202,6 +203,13 @@ var
                             refreshPositions();
                             startIdx = -1;
                             endIdx = -1;
+
+                            /* Jquery fixes */
+                            // IE doesn't register the blur when sorting
+                            // so trigger focusout handlers to remove .ui-state-focus
+                            ui.item.children("h3").triggerHandler("focusout");
+                            // Refresh accordion to handle new order
+                            _$(this).accordion("refresh");
                         }
                         ,
                         handleEditPosition = function (evt) {
@@ -284,22 +292,18 @@ var
                                 header: "> div > h3",
                                 activate: handleOpenAccordion,
                                 beforeActivate: false,
+                                active: false,
                                 alwaysOpen: false,
                                 collapsible: true
                             })
                             .sortable({
                                 axis: "y",
                                 handle: "h3",
-                                stop: function (event, ui) {
-                                    // IE doesn't register the blur when sorting
-                                    // so trigger focusout handlers to remove .ui-state-focus
-                                    ui.item.children("h3").triggerHandler("focusout");
-
-                                    // Refresh accordion to handle new order
-                                    _$(this).accordion("refresh");
-                                }
+                                start: handlePositionDrag,
+                                stop: handlePositionDrop
                             });
-                        // _$("#contactForm").validate(_validationHAndler.getContactFormRules());
+
+                        _$("#contactEditForm").validate(_validationHandler.getContactFormRules(handleSaveContact));
                     }
                     // TODO: Register all event listeners
                 }
