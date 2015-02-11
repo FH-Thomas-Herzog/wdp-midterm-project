@@ -167,11 +167,12 @@ var
                             ).append(
                                 createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
                             ).append(
-                                createButtonElement("save", "Speichern")
+                                createInputElement("position-save", "submit").val("Speichern").button()
                             ).append(
-                                createButtonElement("delete", "Löschen")
-                            )
-                            ;
+                                createInputElement("position-delete", "submit").val("Löschen").button()
+                            );
+
+                            _$("#position-save").button();
                         }
 
                         this.removePositionForm = function (id) {
@@ -204,15 +205,15 @@ var
                             }
                             ,
                             createLabelElement = function (id, label) {
-                                return _$("<label></label>").attr("id", "label-" + id).text(label);
+                                return _$("<label></label>").attr("id", "label-" + id).attr("for", id).text(label);
                             }
                             ,
                             createInputElement = function (id, type) {
-                                return _$("<input></input>").attr("id", id).attr("type", type);
+                                return _$("<input></input>").attr("id", id).attr("name", id).attr("type", type);
                             }
                             ,
-                            createButtonElement = function (id, text) {
-                                return _$("<button></button>").attr("id", id).text(text);
+                            createButtonElement = function (id, type, text) {
+                                return _$("<button></button>").attr("id", id).attr("type", type).text(text);
                             }
                     }()))
             }
