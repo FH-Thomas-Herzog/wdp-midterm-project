@@ -146,6 +146,14 @@ var
                                 _renderer.fillContactForm(contacts, (option.val()));
                                 _$("#deleteContact").show();
                             }
+                        }
+                        ,
+                        handleContactSelectHead = function () {
+                            var option = _$(this);
+                            var customer = null;
+                            if ((option != null) && (option.val() >= 0)) {
+                                currentDisposition.head.contact = contacts[option.val()];
+                            }
                         };
 
                     /* Customer Event Listener functions */
@@ -171,9 +179,7 @@ var
                                 _renderer.renderSelectOptions("custSel", customers);
                                 _renderer.renderSelectOptions("dispoCustSel", customers);
 
-                                if (dispoOption != null) {
-                                    _$('#dispoCcustSel option[value=' + dispoOption.val() + ']').attr('selected', 'selected');
-                                }
+                                _$('#dispoCustSel option[value=-1]').attr('selected', 'selected');
                                 _$('#custSel option[value=' + (customers.length - 1) + ']').attr('selected', 'selected');
                                 _$("#deleteCustomer").show();
                             }
@@ -219,6 +225,14 @@ var
                                 _$("#gMaps").dialog("option", "width", 400);
                                 _$("#gMaps").dialog({autoOpen: true});
                                 _$("#deleteCustomer").show();
+                            }
+                        }
+                        ,
+                        handleCustomerSelectHead = function () {
+                            var option = _$(this);
+                            var customer = null;
+                            if ((option != null) && (option.val() >= 0)) {
+                                currentDisposition.head.customer = customers[option.val()];
                             }
                         };
 
@@ -314,7 +328,7 @@ var
                             _$.each(currentDisposition.positions, function (idx, val) {
                                 currentDisposition.head.summaryWeight += parseFloat(val.weight);
                             });
-                            _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
+                            _$("#countPositions").val(currentDisposition.positions.length);
                         }
                         ,
                         handleDeletePosition = function (evt) {
@@ -324,7 +338,8 @@ var
                             if (currentDisposition.positions.length > 0) {
                                 refreshPositionForm(currentDisposition.positions.length - 1);
                             }
-                            _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
+                            
+                            _$("#countPositions").val(currentDisposition.positions.length);
                             if (currentDisposition.positions.length == 0) {
                                 _$("#saveButton").hide();
                             }
@@ -411,6 +426,8 @@ var
                         /* selection events */
                         _$("#contSel").change(handleContactSelect);
                         _$("#custSel").change(handleCustomerSelect);
+                        _$("#dispoCustSel").change(handleCustomerSelectHead);
+                        _$("#dispoContSel").change(handleContactSelectHead);
 
                         /* Button events */
                         _$("#saveButton").hide();
