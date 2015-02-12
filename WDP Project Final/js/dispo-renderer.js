@@ -99,6 +99,7 @@ var
                                     'text': val.name
                                 }));
                             });
+                            _$("#custSel").attr("class", "ui-widget")
                         }
 
                         this.clearCustomerForm = function () {
@@ -112,8 +113,11 @@ var
                                 var company = customers[idx];
                                 option.attr("selected", "selected");
                                 _$("#compName").val(company.name);
-                                _$("#compStreet").val(company.address.street + " " + company.address.number);
-                                _$("#compZipCode").val(company.address.postalCode + "-" + company.address.city);
+                                _$("#compStreet").val(company.address.street);
+                                _$("#compStreetNo").val(company.address.number);
+                                _$("#compCountryIso").val(company.address.countryCode);
+                                _$("#compZipCode").val(company.address.postalCode);
+                                _$("#compCity").val(company.address.city);
                                 _$("#compCountry").val(company.address.countryName);
                             } else {
                                 _self.clearCustomerForm();
@@ -147,29 +151,29 @@ var
 
                         this.renderPositionForm = function (id, position) {
                             _$("#" + id).append(
-                                createLabelElement("comment", "Kommentar:").attr("class", "ui-widget")
+                                createLabelElement("comment", "Kommentar:")
                             ).append(
-                                createInputElement("comment", "text").val(position.comment).attr("class", "ui-widget")
+                                createInputElement("comment", "text").val(position.comment)
                             ).append(
-                                createLabelElement("article-desc", "Artikelbeschreibung:").attr("class", "ui-widget")
+                                createLabelElement("article-desc", "Artikelbeschreibung:")
                             ).append(
-                                createInputElement("article-desc", "text").val(position.itemDescr).attr("class", "ui-widget")
+                                createInputElement("article-desc", "text").val(position.itemDescr)
                             ).append(
-                                createLabelElement("article-nr", "Artikel-Nummer:").attr("class", "ui-widget")
+                                createLabelElement("article-nr", "Artikel-Nummer:")
                             ).append(
-                                createInputElement("article-nr", "text").val(position.itemNo).attr("class", "ui-widget")
+                                createInputElement("article-nr", "text").val(position.itemNo)
                             ).append(
-                                createLabelElement("article-count", "Anzahl:").attr("class", "ui-widget")
+                                createLabelElement("article-count", "Anzahl")
                             ).append(
-                                createInputElement("article-count", "number").val(position.qty).attr("class", "ui-widget")
+                                createInputElement("article-count", "number").val(position.qty)
                             ).append(
-                                createLabelElement("position-weight", "Gewicht").attr("class", "ui-widget")
+                                createLabelElement("position-weight", "Gewicht")
                             ).append(
                                 createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
                             ).append(
-                                createInputElement("save", "Speichern").attr("class", "ui-widget").button()
+                                createInputButtonElement("save", "Speichern", "button")
                             ).append(
-                                createInputElement("delete", "Löschen").attr("class", "ui-widget").button()
+                                createInputButtonElement("delete", "Löschen", "button")
                             );
                         }
 
@@ -199,19 +203,45 @@ var
                          */
                         var
                             createSpanElement = function (id, text) {
-                                return _$("<span></span>").attr("id", id).text(text);
+                                return _$("<span></span><br>")
+                                    .attr("id", id)
+                                    .attr("class", "ui-widget")
+                                    .text(text);
+                            }
+                            ,
+                            createErrorSpanElement = function (id, text) {
+                                return _$("<span></span><br>")
+                                    .attr("id", id)
+                                    .attr("class", "ui-icon ui-icon-info")
+                                    .attr("style", "float: left; margin-right: .3em;")
                             }
                             ,
                             createLabelElement = function (id, label) {
-                                return _$("<label></label>").attr("id", "label-" + id).attr("for", id).text(label);
+                                return _$("<label></label><br>")
+                                    .attr("id", "label-" + id)
+                                    .attr("class", "ui-widget")
+                                    .attr("for", id).text(label);
                             }
                             ,
                             createInputElement = function (id, type) {
-                                return _$("<input></input>").attr("id", id).attr("name", id).attr("type", type);
+                                return _$("<input></input><br>")
+                                    .attr("id", id).attr("name", id)
+                                    .attr("class", "ui-widget")
+                                    .attr("type", type);
                             }
                             ,
+                            createInputButtonElement = function (id, value, type) {
+                                return _$("<input></input>")
+                                    .attr("id", id).attr("value", value)
+                                    .attr("class", "ui-widget")
+                                    .attr("type", type);
+                            },
                             createButtonElement = function (id, type, text) {
-                                return _$("<button></button>").attr("id", id).attr("type", type).text(text);
+                                return _$("<button></button>")
+                                    .attr("id", id)
+                                    .attr("name", id)
+                                    .attr("type", type)
+                                    .text(text);
                             }
                     }()))
             }

@@ -11,17 +11,19 @@
 
     <!-- include css stylesheets -->
 
-    <!--<link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <!--
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
     <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">-->
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">
+    <link href='css/jquery-themes/jquery-ui.css' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    -->
     <!-- fonts from google fonts api -->
+    <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <link href='css/jquery-themes/jquery-ui.css' rel='stylesheet' type='text/css'>
-    <link href='css/jquery-themes/jquery-ui.theme.css' rel='stylesheet' type='text/css'>
-    <link href='css/jquery-themes/jquery-ui.css' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <!--<link href='js/lib/jquery-ui-1.11.2/jquery-ui.css' rel='stylesheet' type='text/css'>-->
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-bootstrap/jquery.ui.theme.css">
     <!-- include javascript files -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBt7ZWih3_mpR9Sleq3qQhDkqhwqhBNXNQ&amp;v=3&amp;sensor=true"></script>
     <script src="js/lib/jquery-2.1.3.js"></script>
@@ -38,14 +40,7 @@
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
     <script src="js/lib/bootstrap/bootstrap.js"></script>
 
-    <style>#form label.error {
-        color: red;
-    }
 
-    #form input.error {
-        border: 1px solid red;
-    }
-    </style>
     <script>
         $(function () {
             $("#accordion").accordion();
@@ -56,9 +51,6 @@
     </script>
 </head>
 <body>
-<!-- PLACEHOLDER FOR ERROR MESSAGES -->
-<div id="errorMessages" class="errorMessage"></div>
-<br>
 
 <div id="pageMain" class="container-fluid">
     <!-- customer information sidebar -->
@@ -66,60 +58,77 @@
         <div id="accordion" class="col-sm-3 col-md-4">
             <h2>Customer Information</h2>
 
-            <form id="companyEditForm">
-                <select id="custSel">
-                    <!-- Placeholder for Customers -->
-                    <label for="compName">Company</label><br><input type="text" value="compName" id="compName" name="compName"/>
-                    <label for="compStreet">Street</label><br><input type="text" value="compStreet" id="compStreet" name="compStreet"/>
-                    <label for="compSipCode">ZipCode/City</label><br><input type="text" value="compZipCode" id="compZipCode"
-                                                          name="compZipCode"/>
-                    <label for="compCountry">Country</label><br><input type="text" value="compCountry" id="compCountry"
-                                                     name="compCountry"/>
-                    <input type="submit" value="saveCompany"/></input>
-
-                </select>
-            </form>
-
+            <div class="customer-form-container">
+                <form id="companyEditForm" name="companyEditForm" method="" action="">
+                    <select id="custSel" class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
+                        <!-- Placeholder for Customers -->
+                    </select>
+                    <br>
+                    <label for="compName">Company</label><br>
+                    <input type="text" value="" id="compName" name="compName"/><br>
+                    <label for="compStreet">Street</label><br>
+                    <input type="text" value="" id="compStreet" name="compStreet"/><br>
+                    <label for="compStreetNo">Street No.</label><br>
+                    <input type="text" value="" id="compStreetNo" name="compStreetNo"/><br>
+                    <label for="compCountryIso">Country Iso Code</label><br>
+                    <input type="text" value="" id="compCountryIso" name="compCountryIso"/><br>
+                    <label for="compZipCode">ZipCode</label><br>
+                    <input type="text" value="" id="compZipCode" name="compZipCode"/><br>
+                    <label for="compCity">City</label><br>
+                    <input type="text" value="" id="compCity" name="compCity"><br>
+                    <label for="compCountry">Country</label><br>
+                    <input type="text" value="" id="compCountry" name="compCountry"/><br>
+                    <input type="button" class="ui-widget" value="saveCompany"/></input>
+                </form>
+            </div>
             <h2>Contacts</h2>
 
             <div class="contact-form-container">
-                <select id="contSel">
+                <select id="contSel" class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
+                    <!-- Placeholder for Contacts -->
                 </select>
+                <br>
 
-                <form id="contactEditForm"  method="" action="">
-                    <label for="contactLastName">LastName</label><br><input type="text" value="lastName" id="contactLastName"
-                                                      name="contactLastName"/>
-                    <label for="contactFirstName">FirstName</label><br><input type="text" value="firstName" id="contactFirstName"
-                                                       name="contactFirstName"/>
-                    <label for="contactEmail">Email</label><br><input type="email" value="email" id="contactEmail" name="contactEmail"/>
-                    <label for="contactPhone">Phone</label><br><input type="text" value="phone" id="contactPhone" name="contactPhone"/>
-                    <input type="submit" value="saveContact"/></input>
+                <form id="contactEditForm" name="contactEditForm" method="" action="">
+                    <label for="contactLastName">LastName</label><br>
+                    <input type="text" value="" id="contactLastName" name="contactLastName"/><br>
+                    <label for="contactFirstName">FirstName</label><br>
+                    <input type="text" value="" id="contactFirstName" name="contactFirstName"/><br>
+                    <label for="contactEmail">Email</label><br>
+                    <input type="email" value="" id="contactEmail" name="contactEmail"/><br>
+                    <label for="contactPhone">Phone</label><br>
+                    <input type="text" value="" id="contactPhone" name="contactPhone"/><br>
+                    <input type="submit" value="saveContact" class="ui-widget">
+                    </input>
 
                 </form>
             </div>
             <h2>Dispo Form Container</h2>
 
             <div class="disposition-form-container" style="margin-top: 10px">
-                <form id="dispositionForm">
-                    <label>Anzahl Positionen</label><br><input type="text" value="0" id="countPositions"/>
-                    <label>Summe Gewicht</label><br><input type="text" value="0" id="sumWeight"/>
-                    <label>Sendungsnummer</label><br><input type="text" value="Sendungsnummer" id="notficationNumber"/>
-                    <label>Lieferanten Nummer</label><br><input type="text" value="Ihre Lieferantennummer"
-                                                                id="supplierNumber"/><br>
-                    <input id="saveButton" type="button" value="save"/></input>
-                    <input id="resetButton" type="button" value="reset"/></input>
-                    <input id="addPositionButton" type="button" value="addPosition"/></input>
-
+                <form id="dispositionForm" name="dispositionForm" method="" action="">
+                    <label>Anzahl Positionen</label><br>
+                    <input type="text" value="0" id="countPositions" name=countPositions"/><br>
+                    <label>Summe Gewicht</label><br>
+                    <input type="text" value="0" id="sumWeight" name="sumWeight"/><br>
+                    <label>Sendungsnummer</label><br>
+                    <input type="text" value="" id="notficationNumber" name="notificationNumber"/><br>
+                    <label>Lieferanten Nummer</label><br>
+                    <input type="text" value="" id="supplierNumber" name="supplierNumber"/><br>
+                    <input id="saveButton" type="button" class="ui-widget" value="save"/>
+                    <input id="resetButton" type="button" class="ui-widget" value="reset"/>
+                    <input id="addPositionButton" type="button" class="ui-widget" value="addPosition"/>
                 </form>
             </div>
         </div>
 
         <div id="position-accordion" class="col-sm-3 col-md-4">
+            <!-- Placeholder for Dispo Positions -->
         </div>
 
-        <button id="opener">Google Maps</button>
+        <input type="button" id="opener" name="opener" class="ui-widget" value="GoogleMaps"/>
         <div id="gMaps" title="Google Maps">
-            <!-- PLACEHOLDER FOR GMAPS -->
+            <!-- Placeholder for Google Maps -->
         </div>
 
         <script>

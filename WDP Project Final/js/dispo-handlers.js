@@ -103,7 +103,7 @@ var
                             if (option != null) {
                                 idx = contacts[option.val()];
                             }
-                            var contact = createContact(_$("#firstName"), _$("#lastName"), _$("#email"), _$("#phone"));
+                            var contact = new Contact(_$("#contactFirstName").val(), _$("#contactLastName").val(), _$("#contactEmail").val(), _$("#contactPhone").val());
                             if (idx >= 0) {
                                 contacts.splice(idx, 1, contact);
                             } else {
@@ -132,14 +132,35 @@ var
 
                     /* Customer Event Listener functions */
                     var
+                        handleSaveCompany = function (evt) {
+                            _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules());
+                            var idx = -1;
+                            var cust = null;
+
+                            // TODO: validate data before instance creation
+
+                            var option = _$("#custSel").find(":selected");
+                            if (option != null) {
+                                idx = currentDisposition.customers[option.val()];
+                            }
+                            var cust = new Customer(_$("#compName").val(), new Address(_$("#compStreet").val(), _$("#compStreetNo").val(), _$("#compZipCode").val(), _$("#compCity").val(), _$("#compCountryIso").val(), _$("#compCountry").val()));
+                            if (idx >= 0) {
+                                currentDisposition.customers.splice(idx, 1, cust);
+                            } else {
+                                currentDisposition.customers.push(cust);
+                            }
+
+                            _renderer.renderCustomerOptions(currentDisposition.customer);
+                        }
+                        ,
                         handleCustomerSelect = function (evt) {
                             var option = _$(this);
                             if (option.val() < 0) {
-                                currentDisposition.customer = null;
+                                customer = [];
                                 _renderer.clearCustomerForm();
                                 // TODO: Remove gmaps from view
                             } else {
-                                currentDisposition.customer = customers[option.val()];
+                                customer = customers[option.val()];
                                 _renderer.fillCustomerForm(customers, option.val());
                                 // TODO: Add gmaps handling
                                 var tmp_adr = customers[option.val()].address.street;
@@ -147,8 +168,13 @@ var
                                 tmp_adr = tmp_adr + ", " + customers[option.val()].address.postalCode;
                                 tmp_adr = tmp_adr + " " + customers[option.val()].address.city;
                                 _geoCodeHandler.addMarkerAddress(tmp_adr);
+                                _$("#gMaps").dialog("option", "height", 400);
+                                _$("#gMaps").dialog("option", "width", 400);
+                                _$("#gMaps").dialog({autoOpen: true});
+
                             }
-                        }
+                        };
+
 
                     var
                         collectHeadData = function () {
@@ -237,6 +263,9 @@ var
                             _renderer.removePositionForm(id);
                             _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(id)]);
                             _$("#position-accordion").accordion("refresh");
+
+                            //_$("#dispositionForm").validate(_validationHandler.getDispoFormRules(handleSave));
+
                         }
 
                     var
@@ -304,6 +333,8 @@ var
                             });
 
                         _$("#contactEditForm").validate(_validationHandler.getContactFormRules(handleSaveContact));
+                        _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules(handleSaveCompany));
+                        //_$("#position-accordion").validate(_validationHandler.getPositionFormRules(handleAddPosition));
                     }
                     // TODO: Register all event listeners
                 }

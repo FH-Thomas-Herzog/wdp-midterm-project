@@ -17,13 +17,16 @@ var
                 return (instance = (new function () {
                     var
                         contactFormRules = {};
+                    companyFormRules = {};
+                    DispoFormRules = {};
 
                     this.getContactFormRules = function (submitCallBack) {
                         return {
                             submitHandler: submitCallBack,
                             debug: true,
+                            errorClass: "ui-state-error ui-corner-all",
                             rules: {
-                                contactFfirstName: {
+                                contactFirstName: {
                                     required: true,
                                     maxlength: 100
                                 },
@@ -56,6 +59,166 @@ var
                                     email: "Ungültige Email"
                                 },
                                 contactPhone: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                }
+                            }
+                        }
+                    }
+
+                    this.getCompanyFormRules = function (submitCallBack) {
+                        return {
+                            submitHandler: submitCallBack,
+                            debug: true,
+                            errorClass: "ui-state-error ui-corner-all",
+                            rules: {
+                                compName: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                compStreet: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                compStreetNo: {
+                                    required: true,
+                                    maxlength: 5
+                                },
+                                compCountryIso: {
+                                    required: true,
+                                    maxlength: 2
+                                },
+                                compZipCode: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                compCity: {
+                                    required: true,
+                                    maxlength: 100
+                                },
+                                compCountry: {
+                                    required: true,
+                                    maxlength: 100
+                                }
+                            },
+                            messages: {
+                                compName: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compStreet: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compStreetNo: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compCountryIso: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compZipCode: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compCity: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                compCountry: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                }
+                            }
+                        }
+                    }
+
+                    this.getDispoFormRules = function (submitCallBack) {
+                        return {
+                            submitHandler: submitCallBack,
+                            debug: true,
+                            errorClass: "ui-state-error ui-corner-all",
+                            rules: {
+                                supplierNumber: {
+                                    required: true,
+                                    maxlength: 20
+                                },
+                                notificationNumber: {
+                                    required: true,
+                                    maxlength: 35
+                                },
+                                sumWeight: {
+                                    required: true,
+                                    minlength: 1,
+                                    maxlength: 5
+                                },
+                                countPositions: {
+                                    required: true,
+                                    minlength: 1,
+                                    maxlength: 5
+                                }
+                            },
+                            messages: {
+                                supplierNumber: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                notificationNumber: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                sumWeight: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                countPositions: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                }
+                            }
+                        }
+                    }
+
+                    this.getPositionFormRules = function (submitCallBack) {
+                        return {
+                            submitHandler: submitCallBack,
+                            debug: true,
+                            errorClass: "ui-state-error ui-corner-all",
+                            rules: {
+                                "article-desc": {
+                                    required: true,
+                                    maxlength: 50
+                                },
+                                "article-nr": {
+                                    required: true,
+                                    maxlength: 35
+                                },
+                                "article-cnt": {
+                                    required: true,
+                                    minlength: 1,
+                                    maxlength: 5
+                                },
+                                "position-weight": {
+                                    required: true,
+                                    minlength: 1,
+                                    maxlength: 5
+                                }
+                            },
+                            messages: {
+                                "article-desc": {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                "article-nr": {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                "article-cnt": {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                "position-weight": {
                                     required: REQUIRED_MESSAGE,
                                     maxlength: MAX_LENGTH_EXCEEDED
                                 }
