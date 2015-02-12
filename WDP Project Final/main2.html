@@ -10,19 +10,9 @@
     <title>WDP Project</title>
 
     <!-- include css stylesheets -->
-    <link rel="stylesheet" type="text/css" href="css/base.css"/>
-    <link rel="stylesheet" type="text/css" href="css/form.css"/>
-    <link rel="stylesheet" type="text/css" href="css/table.css"/>
-    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">
-
-
-    <!-- fonts from google fonts api -->
+    <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-bootstrap/jquery.ui.theme.css">
     <!-- include javascript files -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBt7ZWih3_mpR9Sleq3qQhDkqhwqhBNXNQ&amp;v=3&amp;sensor=true"></script>
     <script src="js/lib/jquery-2.1.3.js"></script>
@@ -30,71 +20,175 @@
     <script src="js/dispo-object-spec.js"></script>
     <script src="js/dispo-static-data.js"></script>
     <script src="js/dispo-renderer.js"></script>
-
+    <script src="js/dispo-geocode-handler.js"></script>
+    <script src="js/dispo-form-validation.js"></script>
+    <script src="js/dispo-handlers.js"></script>
+    <script src="js/lib/jquery-validation/jquery.validate.js"></script>
+    <script src="js/lib/jquery-validation/additional-methods.js"></script>
+    <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
-    <style>
-        /* IE has layout issues when sorting (see #5413) */
-        .group {
-            zoom: 1
-        }
-    </style>
-    <script>
-        $(function () {
-            $("#accordion1")
-                    .accordion({header: "> div > h3"})
-                    .sortable({
-                        axis: "y",
-                        handle: "h3",
-                        stop: function (event, ui) {
-                            // IE doesn't register the blur when sorting
-                            // so trigger focusout handlers to remove .ui-state-focus
-                            ui.item.children("h3").triggerHandler("focusout");
-
-                            // Refresh accordion to handle new order
-                            $(this).accordion("refresh");
-                        }
-                    });
-        });
-    </script>
+    <script src="js/lib/bootstrap/bootstrap.js"></script>
 </head>
 <body>
-<!-- PLACEHOLDER FOR ERROR MESSAGES -->
-<div id="errorMessages" class="errorMessage">__exampleError__</div>
-<br>
 
-<div id="pageMain" class="page-main-area">
+<div id="pageMain" class="container-fluid">
+    <!-- customer information sidebar -->
+    <div class="row">
+        <div id="accordion" class="col-sm-3 col-md-4">
+            <h2>Customer Information</h2>
 
-    <div id="accordion1">
-        <div class="group">
-            <h3>Section 1</h3>
+            <div class="customer-form-container">
+                <form id="companyEditForm" name="companyEditForm" class="form-horizontal" method="" action="">
+                    <div class="form-group">
+                        <select id="custSel" name="custSel" class="form-control">
+                            <!-- Placeholder for Customers -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compName">Kundenname</label>
 
-            <div>
-                <form id="itemForm1">
-                    <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber"/><br>
-                    <label>Artikelname</label><br><input type="text" value="ItemDescription"
-                                                         id="itemDescription"/><br>
-                    <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity"/>
-                    <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight"/><br>
-                    <input type="submit" id="addItem" value="add"/>
-                    <input type="submit" id="saveChanges" value="save"/>
+                        <div class="col-sm-8">
+                            <input type="text" value="" class="form-control " id="compName" name="compName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compStreet">Strasse</label>
+
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" value="" id="compStreet" name="compStreet"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compStreetNo">Hausnummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compStreetNo" name="compStreetNo"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCountryIso">Ländercode</label>
+
+                        <div class=col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCountryIso" name="compCountryIso"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compZipCode">Postleitzahl</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compZipCode" name="compZipCode"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCity">Stadt</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCity" name="compCity">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCountry">Land</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCountry" name="compCountry"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="saveCustomer" value="speichern" class="btn btn-default"/>
+                        <input type="submit" id="deleteCustomer" value="löschen" class="btn btn-default"/>
+                    </div>
+
+                </form>
+            </div>
+            <h2>Contacts</h2>
+
+            <div class="contact-form-container">
+                <div class="form-group">
+                    <select id="contSel" class="form-control">
+                        <!-- Placeholder for Contacts -->
+                    </select>
+                </div>
+
+                <form id="contactEditForm" name="contactEditForm" method="" action="">
+                    <div class="form-group">
+                        <label for="contactLastName">Nachname
+                            <input type="text" value="" id="contactLastName" name="contactLastName"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactFirstName">Vorname
+                            <input type="text" value="" id="contactFirstName" name="contactFirstName"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email
+                            <input type="email" value="" id="contactEmail" name="contactEmail"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Telefon
+                            <input type="text" value="" id="contactPhone" name="contactPhone"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="saveContact" value="speichern" class="btn btn-default">
+                        <input type="submit" name="deleteContact" value="löschen" class="btn btn-default">
+                        </input>
+                    </div>
+
                 </form>
             </div>
         </div>
-        <div class="group">
-            <h3>Section 1</h3>
 
-            <div>
-                <form id="itemForm2">
-                    <label>ArtikelNr</label><br><input type="text" value="Item#" id="itemNumber1"/><br>
-                    <label>Artikelname</label><br><input type="text" value="ItemDescription" id="itemDescription1"/><br>
-                    <label>Anzahl (Stk)</label><input type="number" value="ItemQty" id="itemQuantity1"/>
-                    <label>Gewicht (kg)</label><input type="number" value="ItemWeight" id="itemWeight1"/><br>
-                    <input type="submit" id="addItem1" value="add"/>
-                    <input type="submit" id="saveChanges1" value="save"/>
+        <div id="accordion-dispo" class="col-sm-6 col-md-8">
+            <h2>Dispo Form Container</h2>
+
+            <div class="disposition-form-container" style="margin-top: 10px">
+                <form id="dispositionForm" name="dispositionForm" method="" action="">
+                    <div class="form-group">
+                        <label>Anzahl Positionen
+                            <input type="text" value="0" id="countPositions" name=countPositions"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Summe Gewicht
+                            <input type="text" value="0" id="sumWeight" name="sumWeight"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Sendungsnummer
+                            <input type="text" value="" id="notficationNumber" name="notificationNumber"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Lieferanten Numme
+                            <input type="text" value="" id="supplierNumber" name="supplierNumber"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input id="saveButton" type="button" class="btn btn-default" value="speichern"/>
+                        <input id="resetButton" type="button" class="btn btn-default" value="löschen"/>
+                        <input id="addPositionButton" type="button" class="btn btn-default" value="hinzufügen"/>
+                    </div>
                 </form>
+                <div id="position-accordion">
+                    <!-- Placeholder for Dispo Positions -->
+                </div>
             </div>
         </div>
     </div>
+    <!--
+            <div id="position-accordion" class="col-sm-3 col-md-4">
+            </div>
+    -->
 </div>
+<!--
+<input type="button" id="opener" name="opener" class="ui-widget" value="GoogleMaps"/>
+-->
+<div id="gMaps" title="Google Maps" class="ui-widget">
+    <!-- Placeholder for Google Maps -->
+</div>
+
+
 </body>
 </html>
