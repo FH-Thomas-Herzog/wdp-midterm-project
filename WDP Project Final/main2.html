@@ -148,8 +148,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" id="saveContact" name="saveContact" value="speichern" class="btn btn-default"/>
-                        <input type="button" id="deleteContact" name="deleteContact" value="löschen" class="btn btn-default"/>
+                        <input type="submit" name="saveContact" value="speichern" class="btn btn-default"/>
+                        <input type="button" name="deleteContact" value="löschen" class="btn btn-default"/>
                     </div>
 
                 </form>
@@ -161,6 +161,24 @@
 
             <div id="panel-dispo-body" style="margin-top: 10px">
                 <form id="dispositionForm" name="dispositionForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="dispoCustSel">Kunde</label>
+
+                        <div class="col-sm-8">
+                            <select id="dispoCustSel" name="dispoCustSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="dispoContSel">Kontakt</label>
+
+                        <div class="col-sm-8">
+                            <select id="dispoContSel" name="dispoContSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="countPositions">Anzahl Positionen</label>
 
@@ -192,9 +210,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input id="saveButton" type="submit" class="btn btn-default" value="speichern"/>
-                        <input id="resetButton" type="button" class="btn btn-default" value="löschen"/>
-                        <input id="addPositionButton" type="button" class="btn btn-default" value="hinzufügen"/>
+                        <input id="saveButton" type="submit" name="savePosition" class="btn btn-default"
+                               value="speichern"/>
+                        <input id="resetButton" type="button" name="deletePosition" class="btn btn-default"
+                               value="löschen"/>
+                        <input id="addPositionButton" name="addPosition" type="button" class="btn btn-default"
+                               value="hinzufügen"/>
                     </div>
                 </form>
                 <div id="position-accordion">
