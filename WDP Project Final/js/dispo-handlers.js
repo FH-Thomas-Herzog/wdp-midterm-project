@@ -268,6 +268,10 @@ var
                             _$("position-accordion").empty();
                             refreshPositions();
                             _$("#item-header-" + idx).click();
+
+                            if (currentDisposition.positions.length > 0) {
+                                _$("#saveButton").show();
+                            }
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
@@ -321,6 +325,9 @@ var
                                 refreshPositionForm(currentDisposition.positions.length - 1);
                             }
                             _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
+                            if (currentDisposition.positions.length == 0) {
+                                _$("#saveButton").hide();
+                            }
                         }
 
                     /**
@@ -406,6 +413,7 @@ var
                         _$("#custSel").change(handleCustomerSelect);
 
                         /* Button events */
+                        _$("#saveButton").hide();
                         _$("#deleteCustomer").click(handleCustomerDelete).hide();
                         _$("#deleteContact").click(handleDeleteContact).hide();
                         _$("#resetButton").click(handleReset);
