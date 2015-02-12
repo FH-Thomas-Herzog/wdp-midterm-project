@@ -1,28 +1,17 @@
+<!DOCTYPE html>
 <!--
 /**
  * Created by Tom on 03.01.15.
  */
 -->
-<!DOCTYPE html>
 <html>
 <head lang="de">
     <meta charset="UTF-8">
     <title>WDP Project</title>
 
     <!-- include css stylesheets -->
-
-    <!--
-    <link rel="stylesheet" type="text/css" href="css/base.css"/>
-    <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-1.11.2/jquery-ui.theme.css">
-    <link href='css/jquery-themes/jquery-ui.css' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    -->
-    <!-- fonts from google fonts api -->
     <link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.css"/>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-    <!--<link href='js/lib/jquery-ui-1.11.2/jquery-ui.css' rel='stylesheet' type='text/css'>-->
     <link rel="stylesheet" type="text/css" href="js/lib/jquery-ui-bootstrap/jquery.ui.theme.css">
     <!-- include javascript files -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBt7ZWih3_mpR9Sleq3qQhDkqhwqhBNXNQ&amp;v=3&amp;sensor=true"></script>
@@ -48,81 +37,184 @@
         <div id="accordion" class="col-sm-3 col-md-4">
             <h2 id="panel-customer-header">Customer Information</h2>
 
-            <div id="panel-customer-body" class="customer-form-container">
-                <form id="companyEditForm" name="companyEditForm" method="" action="">
-                    <select id="custSel" name="custSel"
-                            class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
-                        <!-- Placeholder for Customers -->
-                    </select>
-                    <br>
-                    <label for="compName">Company</label><br>
-                    <input type="text" value="" id="compName" name="compName"/><br>
-                    <label for="compStreet">Street</label><br>
-                    <input type="text" value="" id="compStreet" name="compStreet"/><br>
-                    <label for="compStreetNo">Street No.</label><br>
-                    <input type="text" value="" id="compStreetNo" name="compStreetNo"/><br>
-                    <label for="compCountryIso">Country Iso Code</label><br>
-                    <input type="text" value="" id="compCountryIso" name="compCountryIso"/><br>
-                    <label for="compZipCode">ZipCode</label><br>
-                    <input type="text" value="" id="compZipCode" name="compZipCode"/><br>
-                    <label for="compCity">City</label><br>
-                    <input type="text" value="" id="compCity" name="compCity"><br>
-                    <label for="compCountry">Country</label><br>
-                    <input type="text" value="" id="compCountry" name="compCountry"/><br>
-                    <input type="submit" value="Speichern" class="ui-widget"/>
-                    <input id="deleteCustomer" name="deleteCompany" type="button" value="Löschen"
-                           class="ui-widget"/>
+            <div id="panel-customer-body">
+                <form id="companyEditForm" name="companyEditForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compName">Kunde</label>
+
+                        <div class="col-sm-8">
+                            <select id="custSel" name="custSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compName">Kundenname</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" value="" class="form-control " id="compName" name="compName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compStreet">Strasse</label>
+
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" value="" id="compStreet" name="compStreet"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compStreetNo">Hausnummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compStreetNo" name="compStreetNo"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCountryIso">L&auml;ndercode</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCountryIso" name="compCountryIso"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compZipCode">Postleitzahl</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compZipCode" name="compZipCode"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCity">Stadt</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCity" name="compCity">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="compCountry">Land</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="compCountry" name="compCountry"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="saveCustomer" value="speichern" class="btn btn-default"/>
+                        <input type="button" id="deleteCustomer" value="löschen" class="btn btn-default"/>
+                    </div>
+
                 </form>
             </div>
-
             <h2 id="panel-contact-header">Contacts</h2>
 
-            <div id="panel-contact-body" class="contact-form-container">
-                <form id="contactEditForm" name="contactEditForm" method="" action="">
-                    <select id="contSel" class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
-                        <!-- Placeholder for Contacts -->
-                    </select>
-                    <label for="contactLastName">LastName</label><br>
-                    <input type="text" value="" id="contactLastName" name="contactLastName"/><br>
-                    <label for="contactFirstName">FirstName</label><br>
-                    <input type="text" value="" id="contactFirstName" name="contactFirstName"/><br>
-                    <label for="contactEmail">Email</label><br>
-                    <input type="email" value="" id="contactEmail" name="contactEmail"/><br>
-                    <label for="contactPhone">Phone</label><br>
-                    <input type="text" value="" id="contactPhone" name="contactPhone"/><br>
-                    <input type="submit" value="Speichern" class="ui-widget">
-                    <input id="deleteContact" name="deleteContact" type="button" value="Löschen"
-                           class="ui-widget"/>
-                    </input>
+            <div id="panel-contact-body">
+                <form id="contactEditForm" name="contactEditForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contSel">Kontakt</label>
+
+                        <div class="col-sm-8">
+                            <select id="contSel" name="contSel" class="form-control">
+                                <!-- Placeholder for Contacts -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contactLastName">Nachname</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="contactLastName"
+                                   name="contactLastName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contactFirstName">Vorname</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" value="" class="form-control" id="contactFirstName"
+                                   name="contactFirstName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contactEmail">Email</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" value="" id="contactEmail" name="contactEmail"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contactPhone">Telefon</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="contactPhone" name="contactPhone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="saveContact" name="saveContact" value="speichern" class="btn btn-default"/>
+                        <input type="button" id="deleteContact" name="deleteContact" value="löschen" class="btn btn-default"/>
+                    </div>
 
                 </form>
             </div>
         </div>
 
         <div id="accordion-dispo" class="col-sm-6 col-md-8">
-            <h2 id="panel-dipso-header">Dispo Form Container</h2>
+            <h2 id="panel-dispo-header">Dispo Form Container</h2>
 
-            <div id="panel-dipso-body" class="disposition-form-container" style="margin-top: 10px">
-                <form id="dispositionForm" name="dispositionForm" method="" action="">
-                    <select id="dispoCustSel" name="dispoCustSel"
-                            class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
-                        <!-- Placeholder for Customers -->
-                    </select>
-                    <select id="dispoContSel" name="dispoContSel"
-                            class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
-                        <!-- Placeholder for Contacts -->
-                    </select>
-                    <label>Anzahl Positionen</label><br>
-                    <input type="text" value="0" id="countPositions" name=countPositions"/><br>
-                    <label>Summe Gewicht</label><br>
-                    <input type="text" value="0" id="sumWeight" name="sumWeight"/><br>
-                    <label>Sendungsnummer</label><br>
-                    <input type="text" value="" id="notficationNumber" name="notificationNumber"/><br>
-                    <label>Lieferanten Nummer</label><br>
-                    <input type="text" value="" id="supplierNumber" name="supplierNumber"/><br>
-                    <input id="saveButton" type="submit" class="ui-widget" value="Speichern"/>
-                    <input id="resetButton" type="button" class="ui-widget" value="reset"/>
-                    <input id="addPositionButton" type="button" class="ui-widget" value="addPosition"/>
+            <div id="panel-dispo-body" style="margin-top: 10px">
+                <form id="dispositionForm" name="dispositionForm" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="dispoCustSel">Kunde</label>
+
+                        <div class="col-sm-8">
+                            <select id="dispoCustSel" name="dispoCustSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="dispoContSel">Kontakt</label>
+
+                        <div class="col-sm-8">
+                            <select id="dispoContSel" name="dispoContSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="countPositions">Anzahl Positionen</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="0" id="countPositions" name="countPositions"
+                                   readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="sumWeight">Summe Gewicht</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="0" id="sumWeight" name="sumWeight" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="notficationNumber">Sendungsnummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="notficationNumber"
+                                   name="notficationNumber"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="supplierNumber">Lieferanten-Nummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="supplierNumber" name="supplierNumber"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input id="saveButton" type="submit" name="savePosition" class="btn btn-default"
+                               value="speichern"/>
+                        <input id="addPositionButton" name="addPosition" type="button" class="btn btn-default"
+                               value="hinzufügen"/>
+                    </div>
                 </form>
                 <div id="position-accordion">
                     <!-- Placeholder for Dispo Positions -->
@@ -135,13 +227,10 @@
             </div>
     -->
 </div>
-<!--
-<input type="button" id="opener" name="opener" class="ui-widget" value="GoogleMaps"/>
--->
+
 <div id="gMaps" title="Google Maps" class="ui-widget">
     <!-- Placeholder for Google Maps -->
 </div>
-
 
 </body>
 </html>

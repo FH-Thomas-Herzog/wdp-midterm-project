@@ -329,6 +329,7 @@ var
                                 currentDisposition.head.summaryWeight += parseFloat(val.weight);
                             });
                             _$("#countPositions").val(currentDisposition.positions.length);
+                            _$("#sumWeight").val(currentDisposition.head.summaryWeight);
                         }
                         ,
                         handleDeletePosition = function (evt) {
