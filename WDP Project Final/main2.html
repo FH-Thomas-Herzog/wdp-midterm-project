@@ -35,9 +35,9 @@
     <!-- customer information sidebar -->
     <div class="row">
         <div id="accordion" class="col-sm-3 col-md-4">
-            <h2 id="panel-customer-header">Customer Information</h2>
+            <h2>Customer Information</h2>
 
-            <div id="panel-customer-body" class="customer-form-container" class="form-horizontal">
+            <div class="customer-form-container" class="form-horizontal">
                 <form id="companyEditForm" name="companyEditForm" method="post" action="">
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="compName">Kunde</label>
@@ -99,14 +99,14 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" id="saveCustomer" value="speichern" class="btn btn-default"/>
-                        <input type="button" id="deleteCustomer" value="löschen" class="btn btn-default"/>
+                        <input type="submit" id="deleteCustomer" value="löschen" class="btn btn-default"/>
                     </div>
 
                 </form>
             </div>
-            <h2 id="panel-contact-header">Contacts</h2>
+            <h2>Contacts</h2>
 
-            <div id="panel-contact-body" class="contact-form-container" class="form-horizontal">
+            <div class="contact-form-container" class="form-horizontal">
                 <form id="contactEditForm" name="contactEditForm" method="post" action="">
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="contSel">Kontakt</label>
@@ -148,10 +148,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" id="saveContact" name="saveContact" value="speichern"
-                               class="btn btn-default">
-                        <input type="button" id="deleteContact" name="deleteContact" value="löschen"
-                               class="btn btn-default">
+                        <input type="submit" name="saveContact" value="speichern" class="btn btn-default">
+                        <input type="submit" name="deleteContact" value="löschen" class="btn btn-default">
                         </input>
                     </div>
 
@@ -160,10 +158,10 @@
         </div>
 
         <div id="accordion-dispo" class="col-sm-6 col-md-8">
-            <h2 id="panel-dipso-header">Dispo Form Container</h2>
+            <h2>Dispo Form Container</h2>
 
-            <div id="panel-dispo-body" class="disposition-form-container" class="form-horizontal" style="margin-top: 10px">
-                <form id="dispositionForm" name="dispositionForm" method="" action="">
+            <div class="disposition-form-container" class="form-horizontal" style="margin-top: 10px">
+                <form id="dispositionForm" name="dispositionForm" method="post" action="">
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="countPositions">Anzahl Positionen</label>
 
