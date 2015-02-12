@@ -65,11 +65,14 @@ var
         /* #################################### */
         /* public section                      */
         /* #################################### */
-        this.contact = null;
-        this.customer = null;
-        this.head = {};
+        this.head =  {
+            customer: null,
+            contact: null,
+            summaryWeight: 0,
+            notificationNumer: "",
+            supplierNumber: ""
+        };
         this.positions = [];
-        this.summaryWeight = 0;
         this.notificationNumber = "";
         this.supplierNumber = "";
         this.deliveryAddress = null;

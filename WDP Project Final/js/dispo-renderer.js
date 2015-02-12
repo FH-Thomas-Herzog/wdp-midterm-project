@@ -75,11 +75,17 @@ var
                          * Disposition head rendering
                          * ####################################################################
                          */
-                        this.fillDispositionHead = function (head) {
-                            _$("#notificationNumber").val(head.notificationNumber);
-                            _$("#supplierNumber").val(head.supplierNumber);
-                            _$("#sumWeight").val(head.summaryWeight);
-                            _$("#countPositions").val(head.positionCount);
+                        this.fillDispositionHead = function (disposition, custIdx, contIdx) {
+                            _$("#countPositions").val(disposition.positions.length);
+                            _$("#sumWeight").val(disposition.head.summaryWeight);
+                            _$("#notificationNumber").val(disposition.head.notificationNumber);
+                            _$("#supplierNumber").val(disposition.head.supplierNumber);
+                            if (disposition.head.customer != null) {
+                                _$('#dispoCustSel option[value=' + custIdx + ']').attr("selected", "selected");
+                            }
+                            if (disposition.head.contact != null) {
+                                _$('#dispoContSel option[value=' + contIdx + ']').attr("selected", "selected");
+                            }
                         }
 
                         this.renderPositions = function (positions) {
@@ -116,11 +122,11 @@ var
                                 ).append(
                                     createLabelElement("article-count", "Anzahl")
                                 ).append(
-                                    createInputElement("article-count", "number").val(position.qty)
+                                    createInputElement("article-count", "number").attr("step", "0.1").attr("min", "0").attr("max", "9999999999999999999999999").val(position.qty)
                                 ).append(
                                     createLabelElement("position-weight", "Gewicht")
                                 ).append(
-                                    createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
+                                    createInputElement("position-weight", "number").attr("step", "0.1").attr("min", "0").attr("max", "9999999999999999999999999").val(position.weight)
                                 ).append(
                                     createInputButtonElement("savePosition", "Speichern", "submit")
                                 ).append(
@@ -196,6 +202,7 @@ var
                             createInputElement = function (id, type) {
                                 return _$("<input></input><br>")
                                     .attr("id", id).attr("name", id)
+                                    .attr("name", id)
                                     .attr("class", "form-control")
                                     .attr("type", type);
                             }
@@ -203,6 +210,7 @@ var
                             createInputButtonElement = function (id, value, type) {
                                 return _$("<input></input>")
                                     .attr("id", id).attr("value", value)
+                                    .attr("name", id)
                                     .attr("class", "btn btn-default")
                                     .attr("type", type);
                             },

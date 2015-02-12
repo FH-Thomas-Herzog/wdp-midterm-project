@@ -66,7 +66,7 @@ var
                             savePoints = storage.size;
                             item = storage[savePoints - 1];
                             customers = item.customers;
-                            currentDisposition.contact = item.contact;
+                            currentDisposition.head.contact = item.contact;
                             openDispositions = item.openDispositions;
                             // TODO: Display message about returned save point
                         } else {
@@ -83,7 +83,7 @@ var
                         localStorage.getItem(STORAGE_KEY_SAVE_POINTS_ARRAY).push({
                             currentDisposition: currentDisposition,
                             customers: customers,
-                            contact: currentDisposition.contact,
+                            contact: currentDisposition.head.contact,
                             openDispositions: openDispositions
                         });
                     }
@@ -225,10 +225,10 @@ var
 
                     var
                         collectHeadData = function () {
-                            currentDisposition.head = {
-                                notificationNumer: _$("#notificationNumber").val(),
-                                supplierNumber: _$("#supplierNumber").val()
-                            }
+                            currentDisposition.head.customer = customers[_$("#dispoCustSel").find(":selected").val()];
+                            currentDisposition.head.contact = customers[_$("#dispoContSel").find(":selected").val()];
+                            currentDisposition.head.notificationNumer = _$("#notificationNumber").val()
+                            currentDisposition.head.supplierNumber = _$("#supplierNumber").val()
                         }
 
                     /**
@@ -306,6 +306,11 @@ var
                             position.itemDesc = _$("#article-desc").val();
                             position.qty = _$("#article-count").val();
                             position.weight = _$("#position-weight").val();
+                            currentDisposition.head.summaryWeight = 0;
+                            _$.each(currentDisposition.positions, function (idx, val) {
+                                currentDisposition.head.summaryWeight += parseFloat(val.weight);
+                            });
+                            _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
                         }
                         ,
                         handleDeletePosition = function (evt) {
@@ -315,6 +320,7 @@ var
                             if (currentDisposition.positions.length > 0) {
                                 refreshPositionForm(currentDisposition.positions.length - 1);
                             }
+                            _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
                         }
 
                     /**
@@ -447,12 +453,7 @@ var
                         _$("#panel-dispo-header").click();
                         _$("#panel-customer-header").click();
 
-                        if (currentDisposition.customer != null) {
-                            _$('#dispoCustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
-                        }
-                        if (currentDisposition.contact != null) {
-                            _$('#dispoCustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
-                        }
+                        _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
                     }
                     // TODO: Register all event listeners
                 }
