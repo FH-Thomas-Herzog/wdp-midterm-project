@@ -82,7 +82,7 @@ var
                                 customerSelection.append(_$('<option/>', {
                                     'value': idx,
                                     'text': val.name
-                                })).selectmenu();
+                                }));
                             });
                         }
 
@@ -99,7 +99,6 @@ var
                                     'text': val.name
                                 }));
                             });
-                            _$("#custSel").attr("class", "ui-widget")
                         }
 
                         this.clearCustomerForm = function () {
