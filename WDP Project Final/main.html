@@ -39,16 +39,6 @@
     <script src="js/dispo-handlers.js"></script>
     <script src="js/lib/jquery-ui-1.11.2/jquery-ui.js"></script>
     <script src="js/lib/bootstrap/bootstrap.js"></script>
-
-
-    <script>
-        $(function () {
-            $("#accordion").accordion();
-        });
-        $(function () {
-            $("#accordion1").accordion({collapsible: true, active: true});
-        });
-    </script>
 </head>
 <body>
 
@@ -106,7 +96,7 @@
             </div>
         </div>
 
-        <div id="accordion1" class="col-sm-6 col-md-8">
+        <div id="accordion-dispo" class="col-sm-6 col-md-8">
             <h2>Dispo Form Container</h2>
 
             <div class="disposition-form-container" style="margin-top: 10px">
@@ -142,12 +132,6 @@
     <!-- Placeholder for Google Maps -->
 </div>
 
-<script>
-    $("#gMaps").dialog({autoOpen: false});
-    $("#gMaps").dialog("option", "height", 400);
-    $("#gMaps").dialog("option", "width", 400);
-
-</script>
 
 </body>
 </html>
