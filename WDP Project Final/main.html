@@ -70,7 +70,7 @@
                     <label for="compCountry">Country</label><br>
                     <input type="text" value="" id="compCountry" name="compCountry"/><br>
                     <input type="submit" value="Speichern" class="ui-widget"/>
-                    <input id="deleteCompany" name="deleteCompany" type="button" value="Löschen"
+                    <input id="deleteCustomer" name="deleteCompany" type="button" value="Löschen"
                            class="ui-widget"/>
                 </form>
             </div>
@@ -104,9 +104,13 @@
 
             <div id="panel-dipso-body" class="disposition-form-container" style="margin-top: 10px">
                 <form id="dispositionForm" name="dispositionForm" method="" action="">
-                    <select id="dispoCcustSel" name="dispoCcustSel"
+                    <select id="dispoCustSel" name="dispoCustSel"
                             class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
                         <!-- Placeholder for Customers -->
+                    </select>
+                    <select id="dispoContSel" name="dispoContSel"
+                            class="ui-selectmenu-button ui-widget ui-state-default ui-corner-all">
+                        <!-- Placeholder for Contacts -->
                     </select>
                     <label>Anzahl Positionen</label><br>
                     <input type="text" value="0" id="countPositions" name=countPositions"/><br>

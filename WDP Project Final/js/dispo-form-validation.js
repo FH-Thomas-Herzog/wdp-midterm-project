@@ -188,7 +188,7 @@ var
                         }
                     }
 
-                    this.getDispositionFormRules = function (submitCallBack, selectCallback) {
+                    this.getDispositionFormRules = function (submitCallBack) {
                         return {
                             submitHandler: submitCallBack,
                             debug: true,
@@ -233,7 +233,7 @@ var
                             }
                         }
                     }
-                    this.getPositionFormRules = function (submitCallBack, selectCallback) {
+                    this.getPositionFormRules = function (submitCallBack) {
                         return {
                             submitHandler: submitCallBack,
                             debug: true,

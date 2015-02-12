@@ -65,7 +65,7 @@ var
         /* #################################### */
         /* public section                      */
         /* #################################### */
-        this.contacts = [];
+        this.contact = null;
         this.customer = null;
         this.head = {};
         this.positions = [];

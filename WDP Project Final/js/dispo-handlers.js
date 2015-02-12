@@ -66,7 +66,7 @@ var
                             savePoints = storage.size;
                             item = storage[savePoints - 1];
                             customers = item.customers;
-                            currentDisposition.contacts = item.contacts;
+                            currentDisposition.contact = item.contact;
                             openDispositions = item.openDispositions;
                             // TODO: Display message about returned save point
                         } else {
@@ -83,7 +83,7 @@ var
                         localStorage.getItem(STORAGE_KEY_SAVE_POINTS_ARRAY).push({
                             currentDisposition: currentDisposition,
                             customers: customers,
-                            contacts: currentDisposition.contacts,
+                            contact: currentDisposition.contact,
                             openDispositions: openDispositions
                         });
                     }
@@ -100,21 +100,21 @@ var
 
                             if (option != null) {
                                 if (option.val() != -1) {
-                                    currentDisposition.contacts.splice(option.val(), 1, contact);
+                                    contacts.splice(option.val(), 1, contact);
                                 } else {
-                                    currentDisposition.contacts.push(contact);
+                                    contacts.push(contact);
                                 }
                                 _$("#contSel").empty();
                                 _$("#dispoContSel").empty();
-                                _renderer.renderSelectOptions("contSel", currentDisposition.contacts);
-                                _renderer.renderSelectOptions("dispoContSel", currentDisposition.contacts);
+                                _renderer.renderSelectOptions("contSel", contacts);
+                                _renderer.renderSelectOptions("dispoContSel", contacts);
 
                                 if (dispoOption == null) {
                                     _$('#dispoContSel option[value=-1]').attr('selected', 'selected');
                                 } else {
                                     _$('#dispoContSel option[value=' + option.val() + ']').attr('selected', 'selected');
                                 }
-                                _$('#contSel option[value=' + (currentDisposition.contacts.length - 1) + ']').attr('selected', 'selected');
+                                _$('#contSel option[value=' + (contacts.length - 1) + ']').attr('selected', 'selected');
                                 _$("#deleteContact").show();
                             }
                         }
@@ -127,7 +127,7 @@ var
 
                             if ((option != null) && (option.val() != -1)) {
                                 _$("#contactEditForm").trigger('reset');
-                                currentDisposition.contacts.splice(option.val(), 1);
+                                contacts.splice(option.val(), 1);
                                 _$("#contSel").empty();
                                 _$("#dispoContSel").empty();
                                 _renderer.renderSelectOptions("contSel", contacts);
@@ -143,7 +143,7 @@ var
                                 _renderer.clearContactForm();
                                 _$("#deleteContact").hide();
                             } else {
-                                _renderer.fillContactForm(currentDisposition.contacts, (option.val()));
+                                _renderer.fillContactForm(contacts, (option.val()));
                                 _$("#deleteContact").show();
                             }
                         };
@@ -259,6 +259,11 @@ var
                             _renderer.clearPositions();
                             refreshPositions();
                             _$("#item-header-" + (currentDisposition.positions.length - 1)).click();
+
+                            _$("#positionForm").empty();
+                            _renderer.renderPositionForm("item-body-" + (currentDisposition.positions.length - 1), currentDisposition.positions[(currentDisposition.positions.length - 1)]);
+                            _$("#position-accordion").accordion("refresh");
+                            _$("#positionForm").validate(_validationHandler.getPositionFormRules(handleSavePosition));
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
@@ -307,11 +312,6 @@ var
                                 panel = ui.newPanel;
                             }
                             id = panel[0].id;
-
-                            _renderer.removePositionForm(id);
-                            _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(id)]);
-                            _$("#position-accordion").accordion("refresh");
-                            _$("#positionForm").validate(_validationHandler.getPositionFormRules(handleSavePosition));
                         }
 
                     var
@@ -352,9 +352,9 @@ var
                         currentDisposition.contacts = contacts;
 
                         _renderer.renderSelectOptions("custSel", customers);
-                        _renderer.renderSelectOptions("contSel", currentDisposition.contacts);
+                        _renderer.renderSelectOptions("contSel", contacts);
                         _renderer.renderSelectOptions("dispoCustSel", customers);
-                        _renderer.renderSelectOptions("dispoContSel", currentDisposition.contacts);
+                        _renderer.renderSelectOptions("dispoContSel", contacts);
                         _renderer.renderPositions(currentDisposition.positions);
 
                         /* selection events */
@@ -406,11 +406,14 @@ var
                         _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules(handleSaveCompany));
                         _$("#dispositionForm").validate(_validationHandler.getDispoFormRules(handleSave));
 
-                        _$("#panel-dipso-header").click();
+                        _$("#panel-dispo-header").click();
                         _$("#panel-customer-header").click();
 
                         if (currentDisposition.customer != null) {
-                            _$('#dispoCcustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
+                            _$('#dispoCustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
+                        }
+                        if (currentDisposition.contact != null) {
+                            _$('#dispoCustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
                         }
                     }
                     // TODO: Register all event listeners

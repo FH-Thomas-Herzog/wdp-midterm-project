@@ -125,10 +125,6 @@ var
                             );
                         }
 
-                        this.removePositionForm = function (id) {
-                            _$("#" + id).empty();
-                        }
-
                         this.clearPositions = function () {
                             _$("#position-accordion").empty();
                         }
