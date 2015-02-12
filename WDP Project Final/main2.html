@@ -37,12 +37,16 @@
         <div id="accordion" class="col-sm-3 col-md-4">
             <h2>Customer Information</h2>
 
-            <div class="customer-form-container">
-                <form id="companyEditForm" name="companyEditForm" class="form-horizontal" method="" action="">
+            <div class="customer-form-container" class="form-horizontal">
+                <form id="companyEditForm" name="companyEditForm" method="post" action="">
                     <div class="form-group">
-                        <select id="custSel" name="custSel" class="form-control">
-                            <!-- Placeholder for Customers -->
-                        </select>
+                        <label class="col-sm-4 control-label" for="compName">Kunde</label>
+
+                        <div class="col-sm-8">
+                            <select id="custSel" name="custSel" class="form-control">
+                                <!-- Placeholder for Customers -->
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="compName">Kundenname</label>
@@ -66,9 +70,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="compCountryIso">Ländercode</label>
+                        <label class="col-sm-4 control-label" for="compCountryIso">L&auml;ndercode</label>
 
-                        <div class=col-sm-8">
+                        <div class="col-sm-8">
                             <input type="text" class="form-control" value="" id="compCountryIso" name="compCountryIso"/>
                         </div>
                     </div>
@@ -102,33 +106,46 @@
             </div>
             <h2>Contacts</h2>
 
-            <div class="contact-form-container">
-                <div class="form-group">
-                    <select id="contSel" class="form-control">
-                        <!-- Placeholder for Contacts -->
-                    </select>
-                </div>
+            <div class="contact-form-container" class="form-horizontal">
+                <form id="contactEditForm" name="contactEditForm" method="post" action="">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contSel">Kontakt</label>
 
-                <form id="contactEditForm" name="contactEditForm" method="" action="">
-                    <div class="form-group">
-                        <label for="contactLastName">Nachname
-                            <input type="text" value="" id="contactLastName" name="contactLastName"/>
-                        </label>
+                        <div class="col-sm-8">
+                            <select id="contSel" name="contSel" class="form-control">
+                                <!-- Placeholder for Contacts -->
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="contactFirstName">Vorname
-                            <input type="text" value="" id="contactFirstName" name="contactFirstName"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="contactLastName">Nachname</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="contactLastName"
+                                   name="contactLastName"/>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="contactEmail">Email
-                            <input type="email" value="" id="contactEmail" name="contactEmail"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="contactFirstName">Vorname</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" value="" class="form-control" id="contactFirstName"
+                                   name="contactFirstName"/>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="contactPhone">Telefon
-                            <input type="text" value="" id="contactPhone" name="contactPhone"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="contactEmail">Email</label>
+
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" value="" id="contactEmail" name="contactEmail"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="contactPhone">Telefon</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="contactPhone" name="contactPhone"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <input type="submit" name="saveContact" value="speichern" class="btn btn-default">
@@ -143,27 +160,36 @@
         <div id="accordion-dispo" class="col-sm-6 col-md-8">
             <h2>Dispo Form Container</h2>
 
-            <div class="disposition-form-container" style="margin-top: 10px">
+            <div class="disposition-form-container" class="form-horizontal" style="margin-top: 10px">
                 <form id="dispositionForm" name="dispositionForm" method="" action="">
                     <div class="form-group">
-                        <label>Anzahl Positionen
-                            <input type="text" value="0" id="countPositions" name=countPositions"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="countPositions">Anzahl Positionen</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="0" id="countPositions" name=countPositions"/>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Summe Gewicht
-                            <input type="text" value="0" id="sumWeight" name="sumWeight"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="sumWeight">Summe Gewicht</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="0" id="sumWeight" name="sumWeight"/>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Sendungsnummer
-                            <input type="text" value="" id="notficationNumber" name="notificationNumber"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="notficationNumber">Sendungsnummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="notficationNumber"
+                                   name="notificationNumber"/>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Lieferanten Numme
-                            <input type="text" value="" id="supplierNumber" name="supplierNumber"/>
-                        </label>
+                        <label class="col-sm-4 control-label" for="supplierNumber">Lieferanten-Nummer</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="" id="supplierNumber" name="supplierNumber"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <input id="saveButton" type="button" class="btn btn-default" value="speichern"/>
