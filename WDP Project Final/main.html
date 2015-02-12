@@ -103,6 +103,9 @@
 
                 </form>
             </div>
+        </div>
+
+        <div id="accordion1" class="col-sm-6 col-md-8">
             <h2>Dispo Form Container</h2>
 
             <div class="disposition-form-container" style="margin-top: 10px">
@@ -120,28 +123,31 @@
                     <input id="addPositionButton" type="button" class="ui-widget" value="addPosition"/>
                 </form>
             </div>
+            <h2>Dispo Positions</h2>
+
+            <div id="position-accordion">
+                <!-- Placeholder for Dispo Positions -->
+            </div>
         </div>
-
-        <div id="position-accordion" class="col-sm-3 col-md-4">
-            <!-- Placeholder for Dispo Positions -->
-        </div>
-
-        <input type="button" id="opener" name="opener" class="ui-widget" value="GoogleMaps"/>
-        <div id="gMaps" title="Google Maps">
-            <!-- Placeholder for Google Maps -->
-        </div>
-
-        <script>
-            $("#gMaps").dialog({autoOpen: false});
-            $("#gMaps").dialog("option", "height", 400);
-            $("#gMaps").dialog("option", "width", 400);
-
-
-            $("#opener").click(function () {
-                $("#gMaps").dialog("open");
-            });
-        </script>
-
     </div>
+    <!--
+            <div id="position-accordion" class="col-sm-3 col-md-4">
+            </div>
+    -->
+</div>
+<!--
+<input type="button" id="opener" name="opener" class="ui-widget" value="GoogleMaps"/>
+-->
+<div id="gMaps" title="Google Maps" class="ui-widget">
+    <!-- Placeholder for Google Maps -->
+</div>
+
+<script>
+    $("#gMaps").dialog({autoOpen: false});
+    $("#gMaps").dialog("option", "height", 400);
+    $("#gMaps").dialog("option", "width", 400);
+
+</script>
+
 </body>
 </html>
