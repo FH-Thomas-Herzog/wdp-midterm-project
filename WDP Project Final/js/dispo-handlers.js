@@ -69,13 +69,14 @@ var
                             currentDisposition.contacts = item.contacts;
                             openDispositions = item.openDispositions;
                             // TODO: Display message about returned save point
-                            _renderer.renderCustomerOptions();
-                            _renderer.renderContactsOptions();
-                            _renderer.renderPositions(currentDisposition.positions);
                         } else {
+                            currentDisposition.contacts = contacts;
                             savePoints = 0;
                             localStorage.setItem(STORAGE_KEY_SAVE_POINTS_ARRAY, []);
                         }
+                        _renderer.renderCustomerOptions(customers);
+                        _renderer.renderContactsOptions(currentDisposition.contacts);
+                        _renderer.renderPositions(currentDisposition.positions);
                     }
 
                     /**
@@ -93,24 +94,21 @@ var
                     /* Contact Event Listener functions */
                     var
                         handleSaveContact = function (evt) {
-                            _$("#contactEditForm").validate(_validationHandler.getContactFormRules());
                             var idx = -1;
                             var contact = null;
 
-                            // TODO: validate data before instance creation
-
                             var option = _$("#contSel").find(":selected");
                             if (option != null) {
-                                idx = contacts[option.val()];
+                                idx = option.val();
                             }
-                            var contact = new Contact(_$("#contactFirstName").val(), _$("#contactLastName").val(), _$("#contactEmail").val(), _$("#contactPhone").val());
+                            contact = new Contact(_$("#contactFirstName").val(), _$("#contactLastName").val(), _$("#contactEmail").val(), _$("#contactPhone").val());
                             if (idx >= 0) {
-                                contacts.splice(idx, 1, contact);
+                                currentDisposition.contacts.splice(idx, 1, contact);
                             } else {
-                                contacts.push(contact);
+                                currentDisposition.contacts.push(contact);
                             }
-
                             _renderer.renderContactsOptions(currentDisposition.contacts);
+                            _$('#contSel option[value=' + (currentDisposition.contacts.length - 1) + ']').attr('selected', 'selected');
                         }
                         ,
                         handleRemoveContact = function (evt) {
@@ -132,8 +130,7 @@ var
 
                     /* Customer Event Listener functions */
                     var
-                        handleSaveCompany = function (evt) {
-                            _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules());
+                        handleSaveCompany = function (form) {
                             var idx = -1;
                             var cust = null;
 
@@ -141,28 +138,39 @@ var
 
                             var option = _$("#custSel").find(":selected");
                             if (option != null) {
-                                idx = currentDisposition.customers[option.val()];
+                                idx = option.val();
                             }
                             var cust = new Customer(_$("#compName").val(), new Address(_$("#compStreet").val(), _$("#compStreetNo").val(), _$("#compZipCode").val(), _$("#compCity").val(), _$("#compCountryIso").val(), _$("#compCountry").val()));
                             if (idx >= 0) {
-                                currentDisposition.customers.splice(idx, 1, cust);
+                                customers.splice(idx, 1, cust);
                             } else {
-                                currentDisposition.customers.push(cust);
+                                customers.push(cust);
                             }
 
-                            _renderer.renderCustomerOptions(currentDisposition.customer);
+                            currentDisposition.customer = cust;
+                            _renderer.renderCustomerOptions(customers);
+                            _$('#custSel option[value=' + (customers.length - 1) + ']').attr('selected', 'selected');
+                        }
+                        ,
+                        handleCompanyDelete = function (evt) {
+                            var idx = _$("#custSel").find(":selected").val();
+                            customers.splice(idx, 1);
+                            _$("#companyEditForm").trigger('reset');
+                            _$('#custSel option[value=-1]').attr('selected', 'selected');
+                            _$('#custSel').empty();
+                            _$("#gMaps").dialog("close");
+                            _renderer.renderCustomerOptions(customers);
                         }
                         ,
                         handleCustomerSelect = function (evt) {
                             var option = _$(this);
+                            var customer = null;
                             if (option.val() < 0) {
-                                customer = [];
                                 _renderer.clearCustomerForm();
-                                // TODO: Remove gmaps from view
+                                _$("#deleteCompany").hide();
                             } else {
                                 customer = customers[option.val()];
                                 _renderer.fillCustomerForm(customers, option.val());
-                                // TODO: Add gmaps handling
                                 var tmp_adr = customers[option.val()].address.street;
                                 tmp_adr = tmp_adr + " " + customers[option.val()].address.number;
                                 tmp_adr = tmp_adr + ", " + customers[option.val()].address.postalCode;
@@ -171,7 +179,7 @@ var
                                 _$("#gMaps").dialog("option", "height", 400);
                                 _$("#gMaps").dialog("option", "width", 400);
                                 _$("#gMaps").dialog({autoOpen: true});
-
+                                _$("#deleteCompany").show();
                             }
                         };
 
@@ -304,18 +312,29 @@ var
 
                         _self.initStateFromStorage();
                         currentDisposition.contacts = contacts;
-                        _renderer.renderContactsOptions(currentDisposition.contacts);
-                        _renderer.renderCustomerOptions(customers);
 
                         /* selection events */
-                        _$("#contSel").change(handleContactSelect);
-                        _$("#custSel").change(handleCustomerSelect);
+                        _$("#contSel").unbind("change").change(handleContactSelect);
+                        _$("#custSel").unbind("change").change(handleCustomerSelect);
 
                         /* Button events */
-                        _$("#saveButton").click(handleSave);
-                        _$("#resetButton").click(handleReset);
-                        _$("#addPositionButton").click(handleAddPosition);
+                        _$("#saveButton").unbind("click").click(handleSave);
+                        _$("#deleteCompany").unbind("click").click(handleCompanyDelete).hide();
+                        _$("#resetButton").unbind("click").click(handleReset);
+                        _$("#addPositionButton").unbind("click").click(handleAddPosition);
 
+                        $("#accordion").accordion({
+                            beforeActivate: false,
+                            active: false,
+                            alwaysOpen: false,
+                            collapsible: true
+                        });
+                        $("#accordion-dispo").accordion({
+                            beforeActivate: false,
+                            active: false,
+                            alwaysOpen: false,
+                            collapsible: true
+                        });
                         $("#position-accordion")
                             .accordion({
                                 header: "> div > h3",
@@ -332,9 +351,12 @@ var
                                 stop: handlePositionDrop
                             });
 
+                        $("#gMaps").dialog({autoOpen: false});
+                        $("#gMaps").dialog("option", "height", 400);
+                        $("#gMaps").dialog("option", "width", 400);
+
                         _$("#contactEditForm").validate(_validationHandler.getContactFormRules(handleSaveContact));
                         _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules(handleSaveCompany));
-                        //_$("#position-accordion").validate(_validationHandler.getPositionFormRules(handleAddPosition));
                     }
                     // TODO: Register all event listeners
                 }
