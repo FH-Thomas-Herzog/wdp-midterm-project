@@ -96,6 +96,10 @@ var
                         }
 
                         this.renderPositionForm = function (id, position) {
+                            var
+                                idArr = id.split("-")
+                                ,
+                                idx = idArr[idArr.length - 1];
                             _$("#" + id).append(
                                 _$("<form></form>").attr("method", "post").attr("id", "positionForm").append(
                                     createLabelElement("comment", "Kommentar:")
@@ -118,11 +122,14 @@ var
                                 ).append(
                                     createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
                                 ).append(
-                                    createInputButtonElement("save", "Speichern", "button")
+                                    createInputButtonElement("savePosition", "Speichern", "submit")
                                 ).append(
-                                    createInputButtonElement("delete", "Löschen", "button")
+                                    createInputButtonElement("deletePosition", "Löschen", "button")
+                                ).append(
+                                    createInputElement("position-idx", "hidden").val(idx)
                                 )
-                            );
+                            )
+                            ;
                         }
 
                         this.clearPositions = function () {

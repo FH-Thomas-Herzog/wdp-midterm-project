@@ -241,21 +241,19 @@ var
                             rules: {
                                 "article-desc": {
                                     required: true,
-                                    maxlength: 50
+                                    maxlength: 100
                                 },
                                 "article-nr": {
                                     required: true,
-                                    maxlength: 35
+                                    maxlength: 50
                                 },
-                                "article-cnt": {
+                                "article-count": {
                                     required: true,
-                                    minlength: 1,
-                                    maxlength: 5
+                                    minlength: 1
                                 },
                                 "position-weight": {
                                     required: true,
-                                    minlength: 1,
-                                    maxlength: 5
+                                    minlength: 1
                                 }
                             },
                             messages: {
@@ -264,12 +262,10 @@ var
                                     maxlength: MAX_LENGTH_EXCEEDED
                                 },
                                 "article-nr": {
-                                    required: REQUIRED_MESSAGE,
-                                    maxlength: MAX_LENGTH_EXCEEDED
+                                    required: REQUIRED_MESSAGE
                                 },
-                                "article-cnt": {
-                                    required: REQUIRED_MESSAGE,
-                                    maxlength: MAX_LENGTH_EXCEEDED
+                                "article-count": {
+                                    required: REQUIRED_MESSAGE
                                 },
                                 "position-weight": {
                                     required: REQUIRED_MESSAGE,

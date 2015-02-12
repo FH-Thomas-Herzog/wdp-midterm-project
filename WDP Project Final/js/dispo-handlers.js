@@ -249,21 +249,25 @@ var
                         }
                         ,
                         refreshPositions = function () {
+                            _$("#position-accordion").empty();
                             _renderer.renderPositions(currentDisposition.positions);
                             $("#position-accordion").accordion("refresh");
+                        }
+                        ,
+                        refreshPositionForm = function (idx) {
+                            _renderer.renderPositionForm("item-body-" + idx, currentDisposition.positions[idx]);
+                            _$("#positionForm").validate(_validationHandler.getPositionFormRules(handleSavePosition));
+                            _$("#deletePosition").click(handleDeletePosition);
                         }
                         ,
                         handleAddPosition = function (evt) {
                             console.log("add position");
                             currentDisposition.positions.push(new DispoPosition());
-                            _renderer.clearPositions();
-                            refreshPositions();
-                            _$("#item-header-" + (currentDisposition.positions.length - 1)).click();
 
-                            _$("#positionForm").empty();
-                            _renderer.renderPositionForm("item-body-" + (currentDisposition.positions.length - 1), currentDisposition.positions[(currentDisposition.positions.length - 1)]);
-                            _$("#position-accordion").accordion("refresh");
-                            _$("#positionForm").validate(_validationHandler.getPositionFormRules(handleSavePosition));
+                            var idx = (currentDisposition.positions.length - 1);
+                            _$("position-accordion").empty();
+                            refreshPositions();
+                            _$("#item-header-" + idx).click();
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
@@ -292,7 +296,25 @@ var
                         }
                         ,
                         handleSavePosition = function (evt) {
-                            _renderer.renderPositionForm(currentDisposition.positions[extractIndexFromId(_$(this).attr("id"))]);
+                            var
+                                idx = _$("#position-idx").val()
+                                ,
+                                position = currentDisposition.positions[idx] = new DispoPosition();
+
+                            position.comment = _$("#comment").val();
+                            position.itemNo = _$("#article-nr").val();
+                            position.itemDesc = _$("#article-desc").val();
+                            position.qty = _$("#article-count").val();
+                            position.weight = _$("#position-weight").val();
+                        }
+                        ,
+                        handleDeletePosition = function (evt) {
+                            var idx = _$("#position-idx").val();
+                            currentDisposition.positions.splice(idx, 1);
+                            refreshPositions();
+                            if (currentDisposition.positions.length > 0) {
+                                refreshPositionForm(currentDisposition.positions.length - 1);
+                            }
                         }
 
                     /**
@@ -301,7 +323,7 @@ var
                      * ###########################################################
                      */
                     var
-                        handleOpenAccordion = function (evt, ui) {
+                        handleOpenDefaultAccordion = function (evt, ui) {
                             var
                                 id, panel;
 
@@ -313,7 +335,23 @@ var
                             }
                             id = panel[0].id;
                         }
+                        ,
+                        handleOpenPositionAccordion = function (evt, ui) {
+                            var
+                                id, panel;
 
+                            /* formerly collapsed */
+                            $("[id^=item-body]").empty();
+                            if (ui.newHeader[0] == null) {
+                                panel = ui.oldPanel;
+                            } else {
+                                panel = ui.newPanel;
+                            }
+
+                            if (ui.newHeader[0] != null) {
+                                refreshPositionForm(extractIndexFromId(panel[0].id));
+                            }
+                        }
                     var
                         extractIndexFromId = function (id) {
                             var
@@ -384,7 +422,7 @@ var
                         $("#position-accordion")
                             .accordion({
                                 header: "> div > h3",
-                                activate: handleOpenAccordion,
+                                activate: handleOpenPositionAccordion,
                                 beforeActivate: false,
                                 active: false,
                                 alwaysOpen: false,
@@ -404,7 +442,7 @@ var
 
                         _$("#contactEditForm").validate(_validationHandler.getContactFormRules(handleSaveContact));
                         _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules(handleSaveCompany));
-                        _$("#dispositionForm").validate(_validationHandler.getDispoFormRules(handleSave));
+                        _$("#dispositionForm").validate(_validationHandler.getDispositionFormRules(handleSave));
 
                         _$("#panel-dispo-header").click();
                         _$("#panel-customer-header").click();
