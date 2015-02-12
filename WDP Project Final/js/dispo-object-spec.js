@@ -69,96 +69,11 @@ var
         this.customer = null;
         this.head = {};
         this.positions = [];
-        this.positionCount = 0;
         this.summaryWeight = 0;
         this.notificationNumber = "";
         this.supplierNumber = "";
         this.deliveryAddress = null;
         this.pickupAddress = null;
-
-
-        /* #################################### */
-        /* static section                       */
-        /* #################################### */
-        var
-            _self = this
-            ,
-            _$ = $
-            ,
-            POSITION_ID_PREFIX = "pos_";
-
-        /**
-         * Finds a id within the hold id array.
-         * @param id the id of the id
-         * @returns the found id, null otherwise.
-         */
-        function getIdxForPositionId(id) {
-            var foundIdx = -1;
-            $.each(_self.positions, function (idx, value) {
-                return (foundIdx = (value.id === id) ? idx : -1) == -1;
-            });
-            return foundIdx;
-        }
-
-        /**
-         * Adds a id to the disposition and performs validation to ensure that the added id is valid
-         * and that the whole disposition keeps valid.
-         * @param position the id to be added (instanceof DispoPosition)
-         */
-        this.addPosition = function (position) {
-            if ((position != null) && (position.isValid())) {
-                _self.sumWeight += position.weight;
-                position.id = POSITION_ID_PREFIX + (_self.positions.length + 1);
-                _self.positions.push(position);
-            } else {
-                errorHandler.handle(Errors.INVALID_POSITION);
-            }
-        }
-
-        /**
-         * Removes the id from the backed array if it could be found there.
-         * @param positionId the id of the id in the array
-         */
-        this.removePosition = function (positionId) {
-            var idx = getIdxForPositionId(positionId);
-            if (idx >= 0) {
-                _self.positions.splice(idx, 1);
-                /* redefine id id */
-                $.each(_self.positions, function (idx, value) {
-                    value.id = POSITION_ID_PREFIX + (idx + 1);
-                });
-            } else {
-                errorHandler.handle(Errors.POSITION_NOT_FOUND);
-            }
-        }
-
-        this.splitPosition = function (oldPositionId, newPositions) {
-            var idx = getIdxForPositionId(oldPositionId);
-            if (idx >= 0) {
-                /* Check if split positions are valid */
-                var
-                    qty = 0,
-                    weight = 0,
-                    oldPos = positions[idx];
-                $.each(_self.positions, function (idx, value) {
-                    qty += newPositions[i].qty;
-                    weight += newPositions[i].weight;
-                });
-                /* Split id does not cover old pos specified qty and weight */
-                if ((qty != oldPos.qty) && (oldPos.weight != weight)) {
-                    errorHandler.handle(Errors.INVALID_POSITION_SPLIT);
-                    return;
-                }
-                /* Remove old pos and add new ones */
-                _self.positions.splice(idx, 1, newPositions);
-            } else {
-                errorHandler.handle(Errors.INVALID_POSITION);
-            }
-        }
-
-        this.getPositions = function () {
-            return _self.positions.slice(0);
-        }
     }
     ,
     DispoPosition = function () {
@@ -174,8 +89,12 @@ Address.prototype.formattedHtmlAddress = function () {
     return this.street + " " + this.number + "<br>" + this.countryCode + "-" + this.postalCode + " " + this.city + "<br>" + this.countryName.toUpperCase();
 }
 
-Contact.prototype.fullName = function () {
+Contact.prototype.optionVal = function () {
     return this.lastName + ", " + this.firstName;
+}
+
+Customer.prototype.optionVal = function () {
+    return this.name;
 }
 
 Disposition.prototype.buildSummary = function () {

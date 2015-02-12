@@ -18,16 +18,6 @@ var
                             _self = this
                             ;
 
-                        this.removeContactOption = function (option) {
-                            /* if selected one */
-                            if (option.attr("selected")) {
-                                this.clearContactForm();
-                            }
-
-                            /* option remove */
-                            option.remove();
-                        }
-
                         /**
                          * ####################################################################
                          * Contact rendering
@@ -38,20 +28,6 @@ var
                             _$('#contSel').find(":selected").prop("selected", false);
                         }
 
-                        this.renderContactsOptions = function (contacts) {
-                            var contactSelection = _$("#contSel");
-                            contactSelection.empty();
-                            contactSelection.append(_$('<option/>', {
-                                'value': -1,
-                                'text': "Bitte wählen"
-                            }));
-                            _$.each(contacts, function (idx, val) {
-                                contactSelection.append(_$('<option/>', {
-                                    'value': idx,
-                                    'text': val.fullName()
-                                }))
-                            });
-                        }
 
                         this.fillContactForm = function (contacts, idx) {
                             var option = _$('#contSel').find(":selected");
@@ -72,35 +48,6 @@ var
                          * Customer rendering
                          * ####################################################################
                          */
-                        this.renderCustomerOptions = function (customers) {
-                            var customerSelection = _$("#custSel");
-                            customerSelection.append(_$('<option/>', {
-                                'value': -1,
-                                'text': "Bitte wählen"
-                            }));
-                            _$.each(customers, function (idx, val) {
-                                customerSelection.append(_$('<option/>', {
-                                    'value': idx,
-                                    'text': val.name
-                                }));
-                            });
-                        }
-
-
-                        this.renderCustomerOptions = function (customers) {
-                            var customerSelection = _$("#custSel");
-                            customerSelection.append(_$('<option/>', {
-                                'value': -1,
-                                'text': "Bitte wählen"
-                            }));
-                            _$.each(customers, function (idx, val) {
-                                customerSelection.append(_$('<option/>', {
-                                    'value': idx,
-                                    'text': val.name
-                                }));
-                            });
-                        }
-
                         this.clearCustomerForm = function () {
                             _$("#companyEditForm")[0].reset();
                             _$('#custSel').find(":selected").prop("selected", false);
@@ -150,29 +97,31 @@ var
 
                         this.renderPositionForm = function (id, position) {
                             _$("#" + id).append(
-                                createLabelElement("comment", "Kommentar:")
-                            ).append(
-                                createInputElement("comment", "text").val(position.comment)
-                            ).append(
-                                createLabelElement("article-desc", "Artikelbeschreibung:")
-                            ).append(
-                                createInputElement("article-desc", "text").val(position.itemDescr)
-                            ).append(
-                                createLabelElement("article-nr", "Artikel-Nummer:")
-                            ).append(
-                                createInputElement("article-nr", "text").val(position.itemNo)
-                            ).append(
-                                createLabelElement("article-count", "Anzahl")
-                            ).append(
-                                createInputElement("article-count", "number").val(position.qty)
-                            ).append(
-                                createLabelElement("position-weight", "Gewicht")
-                            ).append(
-                                createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
-                            ).append(
-                                createInputButtonElement("save", "Speichern", "button")
-                            ).append(
-                                createInputButtonElement("delete", "Löschen", "button")
+                                _$("<form></form>").attr("method", "post").attr("id", "positionForm").append(
+                                    createLabelElement("comment", "Kommentar:")
+                                ).append(
+                                    createInputElement("comment", "text").val(position.comment)
+                                ).append(
+                                    createLabelElement("article-desc", "Artikelbeschreibung:")
+                                ).append(
+                                    createInputElement("article-desc", "text").val(position.itemDescr)
+                                ).append(
+                                    createLabelElement("article-nr", "Artikel-Nummer:")
+                                ).append(
+                                    createInputElement("article-nr", "text").val(position.itemNo)
+                                ).append(
+                                    createLabelElement("article-count", "Anzahl")
+                                ).append(
+                                    createInputElement("article-count", "number").val(position.qty)
+                                ).append(
+                                    createLabelElement("position-weight", "Gewicht")
+                                ).append(
+                                    createInputElement("position-weight", "number").attr("step", "0.1").val(position.weight)
+                                ).append(
+                                    createInputButtonElement("save", "Speichern", "button")
+                                ).append(
+                                    createInputButtonElement("delete", "Löschen", "button")
+                                )
                             );
                         }
 
@@ -200,6 +149,25 @@ var
                          * Helper for rendering
                          * ####################################################################
                          */
+                        this.renderSelectOptions = function (id, elements) {
+                            var customerSelection = _$("#" + id);
+                            customerSelection.append(_$('<option/>', {
+                                'value': -1,
+                                'text': "Bitte wählen"
+                            })).attr("selected", "selected");
+
+                            _$.each(elements, function (idx, val) {
+                                customerSelection.append(_$('<option/>', {
+                                    'value': idx,
+                                    'text': val.optionVal()
+                                }));
+                            });
+                        }
+
+                        this.removeSelectOptions = function (id) {
+                            _$("#id").empty();
+                        }
+
                         var
                             createSpanElement = function (id, text) {
                                 return _$("<span></span><br>")
@@ -218,21 +186,21 @@ var
                             createLabelElement = function (id, label) {
                                 return _$("<label></label><br>")
                                     .attr("id", "label-" + id)
-                                    .attr("class", "ui-widget")
+                                    .attr("class", "col-sm-4 control-label")
                                     .attr("for", id).text(label);
                             }
                             ,
                             createInputElement = function (id, type) {
                                 return _$("<input></input><br>")
                                     .attr("id", id).attr("name", id)
-                                    .attr("class", "ui-widget")
+                                    .attr("class", "form-control")
                                     .attr("type", type);
                             }
                             ,
                             createInputButtonElement = function (id, value, type) {
                                 return _$("<input></input>")
                                     .attr("id", id).attr("value", value)
-                                    .attr("class", "ui-widget")
+                                    .attr("class", "btn btn-default")
                                     .attr("type", type);
                             },
                             createButtonElement = function (id, type, text) {

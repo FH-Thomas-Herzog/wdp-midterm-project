@@ -35,7 +35,7 @@ var
                         ,
                         _geoCodeHandler = geoHandlerSingletonFactory.get()
                         ,
-                        _validationHandler = formValidationSingleTonFactory.get();
+                        _validationHandler = formValidationSingleTonFactory.get(_$);
 
                     /* Private members */
                     var
@@ -74,9 +74,6 @@ var
                             savePoints = 0;
                             localStorage.setItem(STORAGE_KEY_SAVE_POINTS_ARRAY, []);
                         }
-                        _renderer.renderCustomerOptions(customers);
-                        _renderer.renderContactsOptions(currentDisposition.contacts);
-                        _renderer.renderPositions(currentDisposition.positions);
                     }
 
                     /**
@@ -94,28 +91,49 @@ var
                     /* Contact Event Listener functions */
                     var
                         handleSaveContact = function (evt) {
-                            var idx = -1;
-                            var contact = null;
+                            var
+                                option = _$("#contSel").find(":selected")
+                                ,
+                                dispoOption = _$("#dispoContSel").find(":selected")
+                                ,
+                                contact = new Contact(_$("#contactFirstName").val(), _$("#contactLastName").val(), _$("#contactEmail").val(), _$("#contactPhone").val());
 
-                            var option = _$("#contSel").find(":selected");
                             if (option != null) {
-                                idx = option.val();
+                                if (option.val() != -1) {
+                                    currentDisposition.contacts.splice(option.val(), 1, contact);
+                                } else {
+                                    currentDisposition.contacts.push(contact);
+                                }
+                                _$("#contSel").empty();
+                                _$("#dispoContSel").empty();
+                                _renderer.renderSelectOptions("contSel", currentDisposition.contacts);
+                                _renderer.renderSelectOptions("dispoContSel", currentDisposition.contacts);
+
+                                if (dispoOption == null) {
+                                    _$('#dispoContSel option[value=-1]').attr('selected', 'selected');
+                                } else {
+                                    _$('#dispoContSel option[value=' + option.val() + ']').attr('selected', 'selected');
+                                }
+                                _$('#contSel option[value=' + (currentDisposition.contacts.length - 1) + ']').attr('selected', 'selected');
+                                _$("#deleteContact").show();
                             }
-                            contact = new Contact(_$("#contactFirstName").val(), _$("#contactLastName").val(), _$("#contactEmail").val(), _$("#contactPhone").val());
-                            if (idx >= 0) {
-                                currentDisposition.contacts.splice(idx, 1, contact);
-                            } else {
-                                currentDisposition.contacts.push(contact);
-                            }
-                            _renderer.renderContactsOptions(currentDisposition.contacts);
-                            _$('#contSel option[value=' + (currentDisposition.contacts.length - 1) + ']').attr('selected', 'selected');
                         }
                         ,
-                        handleRemoveContact = function (evt) {
-                            var option = _$("#contSel").find(":selected");
-                            if (option != null) {
-                                currentDisposition.contacts.slice(option.val());
-                                _renderer.removeContactOption(option);
+                        handleDeleteContact = function (evt) {
+                            var
+                                option = _$("#contSel").find(":selected")
+                                ,
+                                dispoOption = _$("#dispoContSel").find(":selected");
+
+                            if ((option != null) && (option.val() != -1)) {
+                                _$("#contactEditForm").trigger('reset');
+                                currentDisposition.contacts.splice(option.val(), 1);
+                                _$("#contSel").empty();
+                                _$("#dispoContSel").empty();
+                                _renderer.renderSelectOptions("contSel", contacts);
+                                _renderer.renderSelectOptions("dispoContSel", contacts);
+                                _$('#contSel option[value=-1]').attr('selected', 'selected');
+                                _$("#deleteContact").hide();
                             }
                         }
                         ,
@@ -123,43 +141,63 @@ var
                             var option = $(this);
                             if (option.val() < 0) {
                                 _renderer.clearContactForm();
+                                _$("#deleteContact").hide();
                             } else {
                                 _renderer.fillContactForm(currentDisposition.contacts, (option.val()));
+                                _$("#deleteContact").show();
                             }
                         };
 
                     /* Customer Event Listener functions */
                     var
                         handleSaveCompany = function (form) {
-                            var idx = -1;
-                            var cust = null;
+                            var
+                                cust = null
+                                ,
+                                option = _$("#custSel").find(":selected")
+                                ,
+                                dispoOption = _$("#dispoCustSel").find(":selected")
+                                ,
+                                cust = new Customer(_$("#compName").val(), new Address(_$("#compStreet").val(), _$("#compStreetNo").val(), _$("#compZipCode").val(), _$("#compCity").val(), _$("#compCountryIso").val(), _$("#compCountry").val()));
 
-                            // TODO: validate data before instance creation
-
-                            var option = _$("#custSel").find(":selected");
                             if (option != null) {
-                                idx = option.val();
-                            }
-                            var cust = new Customer(_$("#compName").val(), new Address(_$("#compStreet").val(), _$("#compStreetNo").val(), _$("#compZipCode").val(), _$("#compCity").val(), _$("#compCountryIso").val(), _$("#compCountry").val()));
-                            if (idx >= 0) {
-                                customers.splice(idx, 1, cust);
-                            } else {
-                                customers.push(cust);
+                                if (option.val() != -1) {
+                                    customers.splice(option.val(), 1, cust);
+                                } else {
+                                    customers.push(cust);
+                                }
+                                _$('#custSel').empty();
+                                _$('#dispoCustSel').empty();
+                                _renderer.renderSelectOptions("custSel", customers);
+                                _renderer.renderSelectOptions("dispoCustSel", customers);
+
+                                if (dispoOption != null) {
+                                    _$('#dispoCcustSel option[value=' + dispoOption.val() + ']').attr('selected', 'selected');
+                                }
+                                _$('#custSel option[value=' + (customers.length - 1) + ']').attr('selected', 'selected');
+                                _$("#deleteCustomer").show();
                             }
 
-                            currentDisposition.customer = cust;
-                            _renderer.renderCustomerOptions(customers);
-                            _$('#custSel option[value=' + (customers.length - 1) + ']').attr('selected', 'selected');
                         }
                         ,
-                        handleCompanyDelete = function (evt) {
-                            var idx = _$("#custSel").find(":selected").val();
-                            customers.splice(idx, 1);
-                            _$("#companyEditForm").trigger('reset');
-                            _$('#custSel option[value=-1]').attr('selected', 'selected');
-                            _$('#custSel').empty();
-                            _$("#gMaps").dialog("close");
-                            _renderer.renderCustomerOptions(customers);
+                        handleCustomerDelete = function (evt) {
+                            var
+                                option = _$("#custSel").find(":selected")
+                                ,
+                                dispoOption = _$('#dispoCustSel').find(":selected");
+
+                            if ((option != null) && (option.val() != -1)) {
+                                _$("#companyEditForm").trigger('reset');
+                                customers.splice(option.val(), 1);
+
+                                _$('#custSel').empty();
+                                _$('#dispoCustSel').empty();
+                                _renderer.renderSelectOptions("custSel", customers);
+                                _renderer.renderSelectOptions("dispoCustSel", customers);
+                                _$('#custSel option[value=-1]').attr('selected', 'selected');
+                                _$("#gMaps").dialog("close");
+                                _$("#deleteCustomer").hide();
+                            }
                         }
                         ,
                         handleCustomerSelect = function (evt) {
@@ -167,7 +205,8 @@ var
                             var customer = null;
                             if (option.val() < 0) {
                                 _renderer.clearCustomerForm();
-                                _$("#deleteCompany").hide();
+                                _$("#deleteCustomer").hide();
+                                _$("#gMaps").dialog("close");
                             } else {
                                 customer = customers[option.val()];
                                 _renderer.fillCustomerForm(customers, option.val());
@@ -179,7 +218,7 @@ var
                                 _$("#gMaps").dialog("option", "height", 400);
                                 _$("#gMaps").dialog("option", "width", 400);
                                 _$("#gMaps").dialog({autoOpen: true});
-                                _$("#deleteCompany").show();
+                                _$("#deleteCustomer").show();
                             }
                         };
 
@@ -219,6 +258,7 @@ var
                             currentDisposition.positions.push(new DispoPosition());
                             _renderer.clearPositions();
                             refreshPositions();
+                            _$("#item-header-" + (currentDisposition.positions.length - 1)).click();
                         }
                         ,
                         handlePositionDrag = function (evt, ui) {
@@ -246,8 +286,8 @@ var
                             _$(this).accordion("refresh");
                         }
                         ,
-                        handleEditPosition = function (evt) {
-                            _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(_$(this).attr("id"))]);
+                        handleSavePosition = function (evt) {
+                            _renderer.renderPositionForm(currentDisposition.positions[extractIndexFromId(_$(this).attr("id"))]);
                         }
 
                     /**
@@ -271,9 +311,7 @@ var
                             _renderer.removePositionForm(id);
                             _renderer.renderPositionForm(id, currentDisposition.positions[extractIndexFromId(id)]);
                             _$("#position-accordion").accordion("refresh");
-
-                            //_$("#dispositionForm").validate(_validationHandler.getDispoFormRules(handleSave));
-
+                            _$("#positionForm").validate(_validationHandler.getPositionFormRules(handleSavePosition));
                         }
 
                     var
@@ -313,27 +351,35 @@ var
                         _self.initStateFromStorage();
                         currentDisposition.contacts = contacts;
 
+                        _renderer.renderSelectOptions("custSel", customers);
+                        _renderer.renderSelectOptions("contSel", currentDisposition.contacts);
+                        _renderer.renderSelectOptions("dispoCustSel", customers);
+                        _renderer.renderSelectOptions("dispoContSel", currentDisposition.contacts);
+                        _renderer.renderPositions(currentDisposition.positions);
+
                         /* selection events */
-                        _$("#contSel").unbind("change").change(handleContactSelect);
-                        _$("#custSel").unbind("change").change(handleCustomerSelect);
+                        _$("#contSel").change(handleContactSelect);
+                        _$("#custSel").change(handleCustomerSelect);
 
                         /* Button events */
-                        _$("#saveButton").unbind("click").click(handleSave);
-                        _$("#deleteCompany").unbind("click").click(handleCompanyDelete).hide();
-                        _$("#resetButton").unbind("click").click(handleReset);
-                        _$("#addPositionButton").unbind("click").click(handleAddPosition);
+                        _$("#deleteCustomer").click(handleCustomerDelete).hide();
+                        _$("#deleteContact").click(handleDeleteContact).hide();
+                        _$("#resetButton").click(handleReset);
+                        _$("#addPositionButton").click(handleAddPosition);
 
                         $("#accordion").accordion({
                             beforeActivate: false,
                             active: false,
                             alwaysOpen: false,
-                            collapsible: true
+                            collapsible: true,
+                            heightStyle: "content"
                         });
                         $("#accordion-dispo").accordion({
                             beforeActivate: false,
                             active: false,
                             alwaysOpen: false,
-                            collapsible: true
+                            collapsible: true,
+                            heightStyle: "content"
                         });
                         $("#position-accordion")
                             .accordion({
@@ -342,7 +388,8 @@ var
                                 beforeActivate: false,
                                 active: false,
                                 alwaysOpen: false,
-                                collapsible: true
+                                collapsible: true,
+                                heightStyle: "content"
                             })
                             .sortable({
                                 axis: "y",
@@ -357,6 +404,14 @@ var
 
                         _$("#contactEditForm").validate(_validationHandler.getContactFormRules(handleSaveContact));
                         _$("#companyEditForm").validate(_validationHandler.getCompanyFormRules(handleSaveCompany));
+                        _$("#dispositionForm").validate(_validationHandler.getDispoFormRules(handleSave));
+
+                        _$("#panel-dipso-header").click();
+                        _$("#panel-customer-header").click();
+
+                        if (currentDisposition.customer != null) {
+                            _$('#dispoCcustSel option[value=' + customers.indexOf(currentDisposition.customer) + ']').attr("selected", "selected");
+                        }
                     }
                     // TODO: Register all event listeners
                 }
@@ -367,7 +422,8 @@ var
     }
     ()
 
-$(function () {
+/* bootsrap causes twice evaluation of the script tags therefore $(document).ready(...) did not work */
+window.onload = function (evt) {
     handler = dispoSingletonHandlerFactory.get();
     handler.init();
-});
+};

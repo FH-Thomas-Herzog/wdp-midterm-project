@@ -6,7 +6,7 @@ var
     MAX_LENGTH_EXCEEDED = "Maximale Länge überschritten ";
 
 var
-    formValidationSingleTonFactory = new function () {
+    formValidationSingleTonFactory = new function (jquery) {
         var
             instance = null;
 
@@ -14,11 +14,19 @@ var
             if (instance != null) {
                 return instance;
             } else {
-                return (instance = (new function () {
+                return (instance = (new function (jquery) {
                     var
-                        contactFormRules = {};
-                    companyFormRules = {};
-                    DispoFormRules = {};
+                        _$ = jquery;
+                    contactFormRules = {}
+                        ,
+                        companyFormRules = {}
+                        ,
+                        DispoFormRules = {};
+
+                    /* register additional assert functions */
+                    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+                        return arg != value;
+                    }, "Value must not equal arg.");
 
                     this.getContactFormRules = function (submitCallBack) {
                         return {
@@ -180,7 +188,52 @@ var
                         }
                     }
 
-                    this.getPositionFormRules = function (submitCallBack) {
+                    this.getDispositionFormRules = function (submitCallBack, selectCallback) {
+                        return {
+                            submitHandler: submitCallBack,
+                            debug: true,
+                            errorClass: "ui-state-error ui-corner-all",
+                            rules: {
+                                dispoCustSel: {
+                                    required: true,
+                                    valueNotEquals: "-1"
+                                },
+                                dispoContSel: {
+                                    required: true,
+                                    valueNotEquals: "-1"
+                                },
+                                notficationNumber: {
+                                    required: true,
+                                    maxlength: 50
+                                },
+                                supplierNumber: {
+                                    required: true,
+                                    maxlength: 50
+                                }
+                            },
+                            messages: {
+                                notficationNumber: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                },
+                                supplierNumber: {
+                                    required: REQUIRED_MESSAGE,
+                                    maxlength: MAX_LENGTH_EXCEEDED
+                                }
+                                ,
+                                dispoCustSel: {
+                                    required: REQUIRED_MESSAGE,
+                                    valueNotEquals: "Bitte wählen Sie einen Kunde aus"
+                                }
+                                ,
+                                dispoContSel: {
+                                    required: REQUIRED_MESSAGE,
+                                    valueNotEquals: "Bitte wählen Sie einen Kontakt aus"
+                                }
+                            }
+                        }
+                    }
+                    this.getPositionFormRules = function (submitCallBack, selectCallback) {
                         return {
                             submitHandler: submitCallBack,
                             debug: true,
