@@ -344,6 +344,12 @@ var
                             if (currentDisposition.positions.length == 0) {
                                 _$("#saveButton").hide();
                             }
+                            currentDisposition.head.summaryWeight = 0;
+                            _$.each(currentDisposition.positions, function (idx, val) {
+                                currentDisposition.head.summaryWeight += parseFloat(val.weight);
+                            });
+                            _$("#countPositions").val(currentDisposition.positions.length);
+                            _$("#sumWeight").val(currentDisposition.head.summaryWeight);
                         }
 
                     /**
