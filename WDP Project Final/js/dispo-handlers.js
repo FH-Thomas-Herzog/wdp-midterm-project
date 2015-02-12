@@ -338,7 +338,7 @@ var
                             if (currentDisposition.positions.length > 0) {
                                 refreshPositionForm(currentDisposition.positions.length - 1);
                             }
-                            
+
                             _$("#countPositions").val(currentDisposition.positions.length);
                             if (currentDisposition.positions.length == 0) {
                                 _$("#saveButton").hide();
