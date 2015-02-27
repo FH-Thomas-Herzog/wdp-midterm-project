@@ -114,7 +114,7 @@ var
                                 ).append(
                                     createLabelElement("article-desc", "Artikelbeschreibung:")
                                 ).append(
-                                    createInputElement("article-desc", "text").val(position.itemDescr)
+                                    createInputElement("article-desc", "text").val(position.itemDesc)
                                 ).append(
                                     createLabelElement("article-nr", "Artikel-Nummer:")
                                 ).append(

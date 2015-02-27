@@ -407,9 +407,9 @@ var
                         }
                         ,
                         handleSave = function (evt) {
-                            collectHeadData();
-                            collectionPositionData();
-                            console.log(currentDisposition);
+                            //collectHeadData();
+                            //collectionPositionData();
+                            //console.log(currentDisposition);
                         }
 
                     /**
@@ -487,7 +487,6 @@ var
 
                         _renderer.fillDispositionHead(currentDisposition, customers.indexOf(currentDisposition.head.customer), contacts.indexOf(currentDisposition.head.customer));
                     }
-                    // TODO: Register all event listeners
                 }
                 ()
                 ))
