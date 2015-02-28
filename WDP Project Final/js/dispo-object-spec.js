@@ -82,7 +82,7 @@ var
     DispoPosition = function () {
         this.comment = "\<Ihr Kommentar zu dieser Position\>";
         this.itemNo = "\<Die Artikelnummer\>";
-        this.itemDescr = "\<Ihre Artikelbeschreibung\>";
+        this.itemDesc = "\<Ihre Artikelbeschreibung\>";
         this.qty = 0;
         this.weight = 0;
     };
